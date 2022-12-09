@@ -1,0 +1,23 @@
+﻿Windows Registry Editor Version 5.00
+[HKEY_CURRENT_USER\Software\Microsoft\VBA\VBE\6.0\Addins\inoVBETools.Connect]
+"CommandLineSafe"=dword:00000000
+"Description"="INOPIAE Tools für VBE"
+"LoadBehavior"=dword:00000003
+"FriendlyName"="inoVBETools"
+[HKEY_CURRENT_USER\Software\Microsoft\VBA\VBE\6.0\Addins64\inoVBETools.Connect]
+"CommandLineSafe"=dword:00000000
+"Description"="INOPIAE Tools für VBE"
+"LoadBehavior"=dword:00000003
+"FriendlyName"="inoVBETools"
+[HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{1B3515B2-6A73-40C8-9DA4-1766ED6600ED}]
+@="inoVBETools.Connect"
+[HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{1B3515B2-6A73-40C8-9DA4-1766ED6600ED}\Implemented Categories]
+[HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{1B3515B2-6A73-40C8-9DA4-1766ED6600ED}\InprocServer32]
+@="mscoree.dll"
+"ThreadingModel"="Both"
+"Class"="inoVBETools.Connect"
+"Assembly"="inoVBETools"
+"RuntimeVersion"="v2.0.50727"
+"CodeBase"="file:///D:/Daten/programierung neu/inoVBETools/inoVBETools/bin/Debug/inoVBETools.dll"
+[HKEY_CLASSES_ROOT\WOW6432Node\CLSID\{1B3515B2-6A73-40C8-9DA4-1766ED6600ED}\ProgId]
+@="inoVBETools.Connect"
