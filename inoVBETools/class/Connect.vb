@@ -278,7 +278,17 @@ Public Class Connect
                                 End If
                                 intLineCounter += 1
                                 If blnNoNumber = False Then
-                                    .ReplaceLine(intLine, intLineCounter.ToString.PadRight(4) & .Lines(intLine, 1).Trim)
+                                    If .Lines(intLine, 1).Length > 4 Then
+                                        For intColumn = 0 To 3
+                                            If .Lines(intLine, 1).Substring(intColumn, 1) <> " " Then
+                                                Exit For
+                                            End If
+                                        Next
+                                        .ReplaceLine(intLine, intLineCounter.ToString.PadRight(4) & .Lines(intLine, 1).Substring(intColumn))
+                                    Else
+                                        .ReplaceLine(intLine, intLineCounter.ToString.PadRight(4) & .Lines(intLine, 1).Trim)
+                                    End If
+
                                     lngCount += 1
                                 End If
                             Else
