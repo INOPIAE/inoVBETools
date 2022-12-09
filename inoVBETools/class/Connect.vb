@@ -42,38 +42,6 @@ Public Class Connect
     End Sub
 
     Public Sub OnDisconnection(RemoveMode As ext_DisconnectMode, ByRef custom As Array) Implements IDTExtensibility2.OnDisconnection
-        Try
-            Select Case RemoveMode
-                Case ext_DisconnectMode.ext_dm_HostShutdown, ext_DisconnectMode.ext_dm_UserClosed
-                    ' Delete buttons on built-in commandbars
-                    If Not (_myStandardCommandBarButton Is Nothing) Then
-                        _myStandardCommandBarButton.Delete()
-                    End If
-                    If Not (_myCodeWindowCommandBarButton Is Nothing) Then
-                        _myCodeWindowCommandBarButton.Delete()
-                    End If
-                    If Not (_myToolsCommandBarButton Is Nothing) Then
-                        _myToolsCommandBarButton.Delete()
-                    End If
-                    ' Disconnect event handlers
-                    _myToolBarButton = Nothing
-                    _myCommandBarPopup1Button = Nothing
-                    _myCommandBarPopup2Button = Nothing
-                    ' Delete commandbars created by the add-in
-                    If Not (_myToolbar Is Nothing) Then
-                        _myToolbar.Delete()
-                    End If
-                    If Not (_myCommandBarPopup1 Is Nothing) Then
-                        _myCommandBarPopup1.Delete()
-                    End If
-                    If Not (_myCommandBarPopup2 Is Nothing) Then
-                        _myCommandBarPopup2.Delete()
-                    End If
-            End Select
-        Catch e As System.Exception
-            System.Windows.Forms.MessageBox.Show(e.ToString)
-        End Try
-
         'Throw New NotImplementedException()
     End Sub
 
@@ -91,59 +59,18 @@ Public Class Connect
         ' Throw New NotImplementedException()
     End Sub
 
-    Private Function AddCommandBarButton(ByVal commandBar As CommandBar) As CommandBarButton
-        Dim commandBarButton As CommandBarButton
-        Dim commandBarControl As CommandBarControl
-        commandBarControl = commandBar.Controls.Add(MsoControlType.msoControlButton)
-        commandBarButton = DirectCast(commandBarControl, CommandBarButton)
-        commandBarButton.Caption = "My button"
-        commandBarButton.FaceId = 59
-        Return commandBarButton
-    End Function
     Private Sub InitializeAddIn()
-        ' Constants for names of built-in commandbars of the VBA editor
-        Const STANDARD_COMMANDBAR_NAME As String = "Voreinstellung"  '"Standard"
-        Const MENUBAR_COMMANDBAR_NAME As String = "Menüleiste" ' "Menu Bar"
-        Const TOOLS_COMMANDBAR_NAME As String = "Tools"
-        Const CODE_WINDOW_COMMANDBAR_NAME As String = "Code Window"
-        ' Constants for names of commandbars created by the add-in
-        Const MY_COMMANDBAR_POPUP1_NAME As String = "MyTemporaryCommandBarPopup1"
-        Const MY_COMMANDBAR_POPUP2_NAME As String = "MyTemporaryCommandBarPopup2"
-        ' Constants for captions of commandbars created by the add-in
-        Const MY_COMMANDBAR_POPUP1_CAPTION As String = "My sub menu"
-        Const MY_COMMANDBAR_POPUP2_CAPTION As String = "My main menu"
-        Const MY_TOOLBAR_CAPTION As String = "My toolbar"
-        ' Built-in commandbars of the VBA editor
-        Dim standardCommandBar As CommandBar
-        Dim menuCommandBar As CommandBar
-        Dim toolsCommandBar As CommandBar
-        Dim codeCommandBar As CommandBar
-        ' Other variables
-        Dim toolsCommandBarControl As CommandBarControl
-        Dim position As Integer
-        Try
-            ' Retrieve some built-in commandbars
-            standardCommandBar = _VBE.CommandBars.Item(STANDARD_COMMANDBAR_NAME)
-            menuCommandBar = _VBE.CommandBars.Item(MENUBAR_COMMANDBAR_NAME)
-            'toolsCommandBar = _VBE.CommandBars.Item(TOOLS_COMMANDBAR_NAME)
-            codeCommandBar = _VBE.CommandBars.Item(CODE_WINDOW_COMMANDBAR_NAME)
-        Catch ex As Exception
-            System.Windows.Forms.MessageBox.Show(ex.ToString)
-        End Try
-
-
-
         Dim cbr As CommandBar
         Dim cbrAddIns As CommandBarPopup = Nothing
         Dim cbrSub As CommandBarPopup = Nothing
 
 
         cbr = _VBE.CommandBars("Menüleiste")
-        cbrAddIns = cbr.Controls.Item("Add-&Ins")
-        cbrSub = cbrAddIns.Controls.Add(MsoControlType.msoControlPopup)
+        '  cbrAddIns = cbr.Controls.Item("Add-&Ins")
+        cbrSub = cbr.Controls.Add(MsoControlType.msoControlPopup)
         With cbrSub
             .Caption = "inoVBETools"
-            .BeginGroup = True
+            '.BeginGroup = True
             _MyLineNummeringButton1 = .Controls.Add(MsoControlType.msoControlButton)
             With _MyLineNummeringButton1
                 .Caption = "Zeilennummerierung"
@@ -155,6 +82,7 @@ Public Class Connect
             _MyErrorHandling = .Controls.Add(MsoControlType.msoControlButton)
             With _MyErrorHandling
                 .Caption = "Fehlerbehandlung"
+                .BeginGroup = True
             End With
         End With
     End Sub
