@@ -250,46 +250,40 @@ Public Class Connect
         Dim bolUnderscore As Boolean, bolSelect As Boolean
         Dim lngCount As Long
 
-        With vbaCodeModule 'vbaComponent.CodeModule
+        With vbaCodeModule
             For intLine = .CountOfDeclarationLines + 1 To .CountOfLines
-                If .Lines(intLine, 1).Trim <> vbNullString And Left$(Trim$(.Lines(intLine, 1)), 1) <> "'" Then '.Lines(intLine, 1).Trim.Substring(0, 1) <> "'" Then
+                If .Lines(intLine, 1).Trim <> vbNullString And If(.Lines(intLine, 1).Trim <> vbNullString, .Lines(intLine, 1).Trim.First <> "'", False) Then
                     If .ProcOfLine(intLine, 0) <> strModulname Then
                         strModulname = .ProcOfLine(intLine, 4)
                         If blnEachProcedure = True Then
                             intLineCounter = 0
                         End If
-                        If Left$(Trim$(StrReverse(.Lines(intLine, 1))), 1) = "_" Then
+                        If .Lines(intLine, 1).Trim.Last = "_" Then
                             bolUnderscore = True
                         Else
                             bolUnderscore = False
                         End If
                     Else
-                        If InStr(1, "End Sub End Function End Property", .Lines(intLine, 1)) = 0 Then
+                        If "End Sub End Function End Property".Contains(.Lines(intLine, 1)) = False Then
                             If Not bolUnderscore And Not bolSelect Then
-
-                                If Left$(Trim$(StrReverse(.Lines(intLine, 1))), 1) = "_" Then bolUnderscore = True
-                                If InStr(1, .Lines(intLine, 1), "Select Case") <> 0 Then bolSelect = True
-                                If IsNumeric(Left$(.Lines(intLine, 1), 1)) Then
-                                    For intColumn = 1 To Len(.Lines(intLine, 1))
-                                        If Not IsNumeric(Left$(.Lines(intLine, 1), intColumn)) Then
+                                If .Lines(intLine, 1).Trim.Last = "_" Then bolUnderscore = True
+                                If .Lines(intLine, 1).Contains("Select Case") Then bolSelect = True
+                                If IsNumeric(.Lines(intLine, 1).Substring(0, 1)) Then
+                                    For intColumn = 1 To .Lines(intLine, 1).Length
+                                        If Not IsNumeric(.Lines(intLine, 1).Substring(0, intColumn)) Then
                                             Exit For
                                         End If
                                     Next
-                                    .ReplaceLine(intLine, StrDup(intColumn - 1, " ") & Mid$(.Lines(intLine, 1), intColumn))
+                                    .ReplaceLine(intLine, StrDup(intColumn, " ") & .Lines(intLine, 1).Substring(intColumn - 1))
                                 End If
-                                intLineCounter = intLineCounter + 1
+                                intLineCounter += 1
                                 If blnNoNumber = False Then
-                                    If Trim$(Left$(.Lines(intLine, 1), Len(Trim(intLineCounter)) + 2)) = "" Then
-                                        .ReplaceLine(intLine, Mid$(.Lines(intLine, 1), Len(Trim(intLineCounter)) + 2))
-                                    Else
-                                        .ReplaceLine(intLine, Trim$(.Lines(intLine, 1)))
-                                    End If
-                                    .ReplaceLine(intLine, Trim$(CStr(intLineCounter)) & " " & .Lines(intLine, 1))
-                                    lngCount = lngCount + 1
+                                    .ReplaceLine(intLine, intLineCounter.ToString.PadRight(4) & .Lines(intLine, 1).Trim)
+                                    lngCount += 1
                                 End If
                             Else
-                                If Left$(Trim$(StrReverse(.Lines(intLine, 1))), 1) <> "_" Then bolUnderscore = False
-                                If InStr(1, .Lines(intLine, 1), "Case") <> 0 Then bolSelect = False
+                                If .Lines(intLine, 1).Trim.Last <> "_" Then bolUnderscore = False
+                                If .Lines(intLine, 1).Contains("Case") Then bolSelect = False
                             End If
                         Else
                             strModulname = vbNullString
