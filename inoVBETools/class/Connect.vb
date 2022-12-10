@@ -16,21 +16,11 @@ Public Class Connect
 
     Private _VBE As VBE
     Private _AddIn As AddIn
-    'CommandBar
-    Private WithEvents _myStandardCommandBarButton As CommandBarButton
-    Private WithEvents _myToolsCommandBarButton As CommandBarButton
-    Private WithEvents _myCodeWindowCommandBarButton As CommandBarButton
-    Private WithEvents _myToolBarButton As CommandBarButton
-    Private WithEvents _myCommandBarPopup1Button As CommandBarButton
-    Private WithEvents _myCommandBarPopup2Button As CommandBarButton
-    ' CommandBars created by the add-in
-    Private _myToolbar As CommandBar
-    Private _myCommandBarPopup1 As CommandBarPopup
-    Private _myCommandBarPopup2 As CommandBarPopup
 
     Private WithEvents _MyLineNummeringButton1 As CommandBarButton = Nothing
     Private WithEvents _MyLineNummeringButton2 As CommandBarButton = Nothing
     Private WithEvents _MyErrorHandling As CommandBarButton = Nothing
+    Private WithEvents _MySettings As CommandBarButton = Nothing
 
     Public Sub OnConnection(Application As Object, ConnectMode As ext_ConnectMode, AddInInst As Object, ByRef custom As Array) Implements IDTExtensibility2.OnConnection
         Try
@@ -64,6 +54,7 @@ Public Class Connect
         Dim cbrAddIns As CommandBarPopup = Nothing
         Dim cbrSub As CommandBarPopup = Nothing
 
+        SetLanguage()
 
         cbr = _VBE.CommandBars("Menüleiste")
         '  cbrAddIns = cbr.Controls.Item("Add-&Ins")
@@ -73,15 +64,20 @@ Public Class Connect
             '.BeginGroup = True
             _MyLineNummeringButton1 = .Controls.Add(MsoControlType.msoControlButton)
             With _MyLineNummeringButton1
-                .Caption = "Zeilennummerierung"
+                .Caption = inoVBETools.My.Resources.menuLineNumber1
             End With
             _MyLineNummeringButton2 = .Controls.Add(MsoControlType.msoControlButton)
             With _MyLineNummeringButton2
-                .Caption = "Zeilennummerierung entfernen"
+                .Caption = inoVBETools.My.Resources.menuLineNumber2
             End With
             _MyErrorHandling = .Controls.Add(MsoControlType.msoControlButton)
             With _MyErrorHandling
-                .Caption = "Fehlerbehandlung"
+                .Caption = inoVBETools.My.Resources.menuErrorHandling
+                .BeginGroup = True
+            End With
+            _MySettings = .Controls.Add(MsoControlType.msoControlButton)
+            With _MySettings
+                .Caption = inoVBETools.My.Resources.menuSettings
                 .BeginGroup = True
             End With
         End With
@@ -235,5 +231,14 @@ Public Class Connect
 
     Private Sub _MyLineNummeringButton2_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton2.Click
         AddLineNumbersToComponent(_VBE.ActiveCodePane.CodeModule, True)
+    End Sub
+
+    Private Sub _MySettings_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MySettings.Click
+        Dim frm As New FrmOptions
+        frm.Show()
+    End Sub
+
+    Private Sub SetLanguage()
+        My.Application.ChangeUICulture(My.Settings.Language)
     End Sub
 End Class
