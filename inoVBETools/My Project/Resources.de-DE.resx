@@ -141,4 +141,7 @@
   <data name="FrmOptionsLangInfo" xml:space="preserve">
     <value>Die Spracheinstellungen werden erst beim nächsten Neustart der Host-Anwendung sichtbar.</value>
   </data>
+  <data name="menuIndentationAll" xml:space="preserve">
+    <value>Einrückung</value>
+  </data>
 </root>

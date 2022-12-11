@@ -89,6 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="class\Connect.vb" />
+    <Compile Include="class\Indentation.vb" />
     <Compile Include="forms\FrmOptions.Designer.vb">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </Compile>
@@ -110,16 +111,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ressources\inoVBETools.de-DE.Designer.vb">
-      <DependentUpon>inoVBETools.de-DE.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="ressources\inoVBETools.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>inoVBETools.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="forms\FrmOptions.resx">
@@ -131,16 +122,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ressources\inoVBETools.de-DE.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>inoVBETools.de-DE.Designer.vb</LastGenOutput>
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ressources\inoVBETools.resx">
-      <CustomToolNamespace>My.Resources</CustomToolNamespace>
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>inoVBETools.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +137,9 @@
     </None>
     <None Include="sonstiges\inoVBETools.reg" />
     <None Include="sonstiges\text.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ressources\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

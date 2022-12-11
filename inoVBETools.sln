@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "inoVBETools", "inoVBETools\inoVBETools.vbproj", "{516B7E67-93D5-4C28-A057-3469CABE2800}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "inoVBEToolsTest", "inoVBEToolsTest\inoVBEToolsTest.vbproj", "{9D2EC30F-FC88-482B-8338-3B6D1734E0E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{516B7E67-93D5-4C28-A057-3469CABE2800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{516B7E67-93D5-4C28-A057-3469CABE2800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{516B7E67-93D5-4C28-A057-3469CABE2800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D2EC30F-FC88-482B-8338-3B6D1734E0E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D2EC30F-FC88-482B-8338-3B6D1734E0E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D2EC30F-FC88-482B-8338-3B6D1734E0E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D2EC30F-FC88-482B-8338-3B6D1734E0E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

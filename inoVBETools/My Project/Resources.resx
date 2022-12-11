@@ -138,4 +138,7 @@
   <data name="FrmOptionsLangInfo" xml:space="preserve">
     <value>Langauge settings will be applied with the next restart of the host application.</value>
   </data>
+  <data name="menuIndentationAll" xml:space="preserve">
+    <value>Indentation</value>
+  </data>
 </root>

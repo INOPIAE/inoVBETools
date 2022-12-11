@@ -106,6 +106,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Indentation ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuIndentationAll() As String
+            Get
+                Return ResourceManager.GetString("menuIndentationAll", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Line numbering ähnelt.
         '''</summary>
         Friend ReadOnly Property menuLineNumber1() As String
