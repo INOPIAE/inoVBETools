@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="class\Connect.vb" />
     <Compile Include="class\Indentation.vb" />
+    <Compile Include="class\VBEHandling.vb" />
     <Compile Include="forms\FrmOptions.Designer.vb">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </Compile>

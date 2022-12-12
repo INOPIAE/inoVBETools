@@ -21,6 +21,10 @@ Public Class Connect
     Private WithEvents _MyLineNummeringButton2 As CommandBarButton = Nothing
     Private WithEvents _MyErrorHandling As CommandBarButton = Nothing
     Private WithEvents _MySettings As CommandBarButton = Nothing
+    Private WithEvents _MyIndentation As CommandBarButton = Nothing
+
+    Private ClsIndent As New Indentation
+    Private ClsVBEHandling As New VBEHandling
 
     Public Sub OnConnection(Application As Object, ConnectMode As ext_ConnectMode, AddInInst As Object, ByRef custom As Array) Implements IDTExtensibility2.OnConnection
         Try
@@ -75,6 +79,11 @@ Public Class Connect
                 .Caption = inoVBETools.My.Resources.menuErrorHandling
                 .BeginGroup = True
             End With
+            _MyIndentation = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyIndentation
+                .Caption = inoVBETools.My.Resources.menuIndentationAll
+                .BeginGroup = True
+            End With
             _MySettings = .Controls.Add(MsoControlType.msoControlButton)
             With _MySettings
                 .Caption = inoVBETools.My.Resources.menuSettings
@@ -97,74 +106,16 @@ Public Class Connect
 
         Dim strVBA As String = "    On Error Goto ErrHandling" & vbNewLine _
             & vbNewLine & vbNewLine _
-            & "    Exit " & GetFnOrSubTypeCurrentPosition() & vbNewLine _
+            & "    Exit " & ClsVBEHandling.GetFnOrSubTypeCurrentPosition(_VBE) & vbNewLine _
             & "ErrHandling:" & vbNewLine _
             & "    Select Case Err.Number" & vbNewLine _
             & "        Case Else" & vbNewLine _
-            & "            MsgBox ""Fehler In Zeile "" & Erl & "" in der Routine '" & GetFnOrSubNameOfCurrentPosition() & "'"" & vbNewLine _" & vbNewLine _
+            & "            MsgBox ""Fehler In Zeile "" & Erl & "" in der Routine '" & ClsVBEHandling.GetFnOrSubNameOfCurrentPosition(_VBE) & "'"" & vbNewLine _" & vbNewLine _
             & "                 & Err.Number & "" - "" & Err.Description" & vbNewLine _
             & "    End Select"
         _VBE.ActiveCodePane.CodeModule.InsertLines(startline + 1, strVBA)
 
     End Sub
-
-    Private Function GetFnOrSubNameOfCurrentPosition() As String
-
-        Dim CodeMod As CodeModule
-
-        Dim startline As Long
-        Dim startcol As Long
-        Dim endline As Long
-        Dim endcol As Long
-
-        _VBE.ActiveCodePane.GetSelection(startline, startcol, endline, endcol)
-
-        CodeMod = _VBE.ActiveCodePane.CodeModule
-
-        For intC As Int16 = startline To 1 Step -1
-            Dim strTest As String = CodeMod.Lines(intC, 1)
-            Dim strTestA() As String
-            Dim strTestA1() As String
-            If strTest.Contains("Sub") Then
-                strTestA = strTest.Split("(")
-                strTestA1 = strTestA(0).Split(" ")
-                Return strTestA1.Last
-            End If
-            If strTest.Contains("Function") Then
-                strTestA = strTest.Split("(")
-                strTestA1 = strTestA(0).Split(" ")
-                Return strTestA1.Last
-            End If
-        Next
-
-        Return String.Empty
-    End Function
-
-    Private Function GetFnOrSubTypeCurrentPosition() As String
-
-        Dim CodeMod As CodeModule
-
-        Dim startline As Long
-        Dim startcol As Long
-        Dim endline As Long
-        Dim endcol As Long
-
-        _VBE.ActiveCodePane.GetSelection(startline, startcol, endline, endcol)
-
-        CodeMod = _VBE.ActiveCodePane.CodeModule
-
-        For intC As Int16 = startline To 1 Step -1
-            Dim strTest As String = CodeMod.Lines(intC, 1)
-            If strTest.Contains("Sub") Then
-                Return "Sub"
-            End If
-            If strTest.Contains("Function") Then
-                Return "Function"
-            End If
-        Next
-
-        Return String.Empty
-    End Function
 
     Public Function AddLineNumbersToComponent(vbaCodeModule As CodeModule, Optional blnNoNumber As Boolean = False, Optional blnEachProcedure As Boolean = True) As Long
         ' returns total line numbers added to code of a single code object as passed to the function
@@ -240,5 +191,14 @@ Public Class Connect
 
     Private Sub SetLanguage()
         My.Application.ChangeUICulture(My.Settings.Language)
+    End Sub
+
+    Private Sub _MyIndentation_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyIndentation.Click
+        Dim StartPos As Long = 0
+        Dim Countlines As Long = 0
+        Dim strCode As String = ClsIndent.IndentCode(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines))
+
+        _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
+        _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
 End Class
