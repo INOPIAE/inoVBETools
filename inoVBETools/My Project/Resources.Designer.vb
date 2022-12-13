@@ -133,6 +133,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Line numbering current prodedure ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuLineNumber3() As String
+            Get
+                Return ResourceManager.GetString("menuLineNumber3", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Remove line numbering current procedure ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuLineNumber4() As String
+            Get
+                Return ResourceManager.GetString("menuLineNumber4", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Settings ähnelt.
         '''</summary>
         Friend ReadOnly Property menuSettings() As String

@@ -144,4 +144,10 @@
   <data name="menuIndentationAll" xml:space="preserve">
     <value>Einrückung</value>
   </data>
+  <data name="menuLineNumber3" xml:space="preserve">
+    <value>Zeilennummerierung aktuelle Prozedur</value>
+  </data>
+  <data name="menuLineNumber4" xml:space="preserve">
+    <value>Zeilennummerierung aktuelle Prozedur entfernen</value>
+  </data>
 </root>

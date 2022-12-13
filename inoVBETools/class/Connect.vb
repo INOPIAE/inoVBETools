@@ -19,6 +19,8 @@ Public Class Connect
 
     Private WithEvents _MyLineNummeringButton1 As CommandBarButton = Nothing
     Private WithEvents _MyLineNummeringButton2 As CommandBarButton = Nothing
+    Private WithEvents _MyLineNummeringButton3 As CommandBarButton = Nothing
+    Private WithEvents _MyLineNummeringButton4 As CommandBarButton = Nothing
     Private WithEvents _MyErrorHandling As CommandBarButton = Nothing
     Private WithEvents _MySettings As CommandBarButton = Nothing
     Private WithEvents _MyIndentation As CommandBarButton = Nothing
@@ -74,6 +76,14 @@ Public Class Connect
             _MyLineNummeringButton2 = .Controls.Add(MsoControlType.msoControlButton)
             With _MyLineNummeringButton2
                 .Caption = inoVBETools.My.Resources.menuLineNumber2
+            End With
+            _MyLineNummeringButton3 = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyLineNummeringButton3
+                .Caption = inoVBETools.My.Resources.menuLineNumber3
+            End With
+            _MyLineNummeringButton4 = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyLineNummeringButton4
+                .Caption = inoVBETools.My.Resources.menuLineNumber4
             End With
             _MyErrorHandling = .Controls.Add(MsoControlType.msoControlButton)
             With _MyErrorHandling
@@ -198,6 +208,24 @@ Public Class Connect
         Dim StartPos As Long = 0
         Dim Countlines As Long = 0
         Dim strCode As String = ClsIndent.IndentCode(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines))
+
+        _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
+        _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
+    End Sub
+
+    Private Sub _MyLineNummeringButton3_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton3.Click
+        Dim StartPos As Long = 0
+        Dim Countlines As Long = 0
+        Dim strCode As String = ClsLineNumbering.AddLineNumbersToCurrentProcedure(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines))
+
+        _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
+        _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
+    End Sub
+
+    Private Sub _MyLineNummeringButton4_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton4.Click
+        Dim StartPos As Long = 0
+        Dim Countlines As Long = 0
+        Dim strCode As String = ClsLineNumbering.AddLineNumbersToCurrentProcedure(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines), True)
 
         _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
         _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)

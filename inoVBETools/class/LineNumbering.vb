@@ -11,7 +11,8 @@ Public Class LineNumbering
 
         With vbaCodeModule
             For intLine = .CountOfDeclarationLines + 1 To .CountOfLines
-                If .Lines(intLine, 1).Trim <> vbNullString And If(.Lines(intLine, 1).Trim <> vbNullString, .Lines(intLine, 1).Trim.First <> "'", False) Then
+                Dim strFill As String = .Lines(intLine, 1).Trim & " -"
+                If .Lines(intLine, 1).Trim <> vbNullString And IIf(.Lines(intLine, 1).Trim <> vbNullString, strFill.First <> "'", False) Then
                     If .ProcOfLine(intLine, 0) <> strModulname Then
                         strModulname = .ProcOfLine(intLine, 4)
                         If blnEachProcedure = True Then
@@ -61,6 +62,83 @@ Public Class LineNumbering
                 End If
             Next
         End With
-        AddLineNumbersToComponent = lngCount
+        Return lngCount
+    End Function
+
+    Public Function AddLineNumbersToCurrentProcedure(CodeString As String, Optional blnNoNumber As Boolean = False) As String
+        Dim intColumn As Integer, intLineCounter As Integer
+        Dim bolUnderscore As Boolean
+        Dim bolSelect As Boolean
+        Dim bolSelectCase As Boolean
+        Dim lngCount As Long
+
+        Dim lines() As String = CodeString.Split({ControlChars.CrLf}, StringSplitOptions.None)
+        Dim strTest As String = ""
+        Dim strReturn As String = ""
+
+        For i As Int16 = 0 To lines.Count - 1
+
+            Dim strFill As String = lines(i).Trim & " -"
+            If String.IsNullOrEmpty(lines(i).Trim) = False And IIf(String.IsNullOrEmpty(lines(i).Trim) = False, strFill.First <> "'", False) Then
+
+                If lines(i).Trim.Last = "_" Then
+                    bolUnderscore = True
+                Else
+                    bolUnderscore = False
+                End If
+
+                'If Not bolUnderscore And Not bolSelect Then
+                If Not bolUnderscore Then
+                    If lines(i).Trim.Last = "_" Then bolUnderscore = True
+                    If lines(i).Contains("Select Case") Then bolSelect = True
+
+                    If lines(i).Contains("Case") Then
+                        bolSelectCase = True
+                    Else
+                        bolSelectCase = False
+                    End If
+                    If lines(i).Contains("End Case") Then bolSelectCase = False
+                    If lines(i).Contains("Select Case") Then bolSelectCase = False
+
+                    If IsNumeric(lines(i).Substring(0, 1)) Then
+                        For intColumn = 0 To lines(i).Length - 1
+                            If Not IsNumeric(lines(i).Substring(intColumn, 1)) Then
+                                Exit For
+                            End If
+                        Next
+                        strTest = StrDup(intColumn, " ") & lines(i).Substring(intColumn)
+                    End If
+
+                    If blnNoNumber = False And bolSelectCase = False Then
+                        intLineCounter += 1
+                        If lines(i).Length > 4 Then
+                            For intColumn = 0 To 3
+                                If lines(i).Substring(intColumn, 1) <> " " Then
+                                    Exit For
+                                End If
+                            Next
+                            strTest = intLineCounter.ToString.PadRight(4) & lines(i).Substring(intColumn).TrimEnd
+                        Else
+                            strTest = intLineCounter.ToString.PadRight(4) & lines(i).Trim
+                        End If
+
+                        lngCount += 1
+                    End If
+                    If bolSelectCase = True Then
+                        strTest = lines(i)
+                    End If
+                Else
+                    If lines(i).Trim.Last <> "_" Then bolUnderscore = False
+                    'If lines(i).Contains("Case") Then bolSelect = False
+                    strTest = lines(i)
+                End If
+            Else
+                strTest = lines(i)
+            End If
+
+
+            strReturn &= IIf(strReturn = "", "", vbCrLf) & strTest
+        Next
+        Return strReturn
     End Function
 End Class
