@@ -141,4 +141,18 @@ Public Class LineNumbering
         Next
         Return strReturn
     End Function
+
+    Public Function HasLineNumbersInCode(CodeString As String) As Boolean
+        Dim lines() As String = CodeString.Split({ControlChars.CrLf}, StringSplitOptions.None)
+        Dim blnChar As Boolean = False
+
+        For i As Int16 = 0 To lines.Count - 1
+            For intColumn As Int16 = 0 To lines(i).Length - 1
+                If IsNumeric(lines(i).Substring(0, 1)) Then
+                    Return True
+                End If
+            Next
+        Next
+        Return False
+    End Function
 End Class

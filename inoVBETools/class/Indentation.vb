@@ -2,13 +2,22 @@
 
 Public Class Indentation
     Public ColIndentLevel As New Collection
+    Private ClsLineNumbering As New LineNumbering
 
     Public Function IndentCode(CodeString As String) As String
-        Dim lines() As String = CodeString.Split(vbCrLf)
+
         Dim strTest As String
         Dim strReturn As String = ""
         Dim level As Int16 = 1
         Dim intIndentNextLine As Int16 = 0
+        Dim blnLineNumbers = ClsLineNumbering.HasLineNumbersInCode(CodeString)
+
+        If blnLineNumbers Then
+            CodeString = ClsLineNumbering.AddLineNumbersToCurrentProcedure(CodeString, True)
+        End If
+
+        Dim lines() As String = CodeString.Split(vbCrLf)
+
         For i As Int16 = 0 To lines.Count - 1
             Dim strLine() As String = lines(i).Trim.Split(" ")
             Select Case strLine(0).ToLower
@@ -71,6 +80,10 @@ Public Class Indentation
                 intIndentNextLine = 0
             End If
         Next
+
+        If blnLineNumbers Then
+            strReturn = ClsLineNumbering.AddLineNumbersToCurrentProcedure(strReturn)
+        End If
         Return strReturn
     End Function
 End Class

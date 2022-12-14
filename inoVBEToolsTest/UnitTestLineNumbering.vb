@@ -104,4 +104,35 @@ Public Class UnitTestLineNumbering
         strResult = ClsLineNumbering.AddLineNumbersToCurrentProcedure(strResult, True)
         Assert.Equal(strStart, strResult)
     End Sub
+
+    <Fact>
+    Sub TestLineNumberingExists()
+
+        Dim strStart As String
+
+        strStart = "    Test = 1" & vbCrLf _
+                & "" & vbCrLf _
+                & "     Test = 3" & vbCrLf _
+                & "     " & vbCrLf _
+                & "     Test = 4 ' Comment" & vbCrLf _
+                & "     Test 5"
+
+        Assert.False(ClsLineNumbering.HasLineNumbersInCode(strStart))
+
+        strStart = "1    Test = 1" & vbCrLf _
+               & "" & vbCrLf _
+               & "     Test = 3" & vbCrLf _
+               & "     " & vbCrLf _
+               & "     Test = 4 ' Comment" & vbCrLf _
+               & "     Test 5"
+        Assert.True(ClsLineNumbering.HasLineNumbersInCode(strStart))
+
+        strStart = "'    Test = 1" & vbCrLf _
+               & "1  Test=1a" & vbCrLf _
+               & "     Test = 3" & vbCrLf _
+               & "     " & vbCrLf _
+               & "     Test = 4 ' Comment" & vbCrLf _
+               & "     Test 5"
+        Assert.True(ClsLineNumbering.HasLineNumbersInCode(strStart))
+    End Sub
 End Class

@@ -316,8 +316,44 @@ Namespace inoVBEToolsTest
 
         End Sub
 
+        <Fact>
+        Sub TestIndentLineNumbers()
+
+            Dim strStart As String
+
+            strStart = "1   If test = 1 Then" & vbCrLf _
+            & "2      test = 2" & vbCrLf _
+            & "3   Else" & vbCrLf _
+            & "4       test = 2" & vbCrLf _
+            & "5   End If"
+
+
+            Dim strResult As String
+            strResult = clsI.IndentCode(strStart)
+            Debug.Print(strStart & "|")
+            Debug.Print(strResult & "|")
+
+            Dim strtest() As String = strResult.Split(vbCrLf)
+            TestIndentationLevelNumber(strtest(0), 1, 1)
+            TestIndentationLevelNumber(strtest(1), 2, 2)
+            TestIndentationLevelNumber(strtest(2), 1, 3)
+            TestIndentationLevelNumber(strtest(3), 2, 4)
+            TestIndentationLevelNumber(strtest(4), 1, 5)
+
+
+        End Sub
         Private Shared Sub TestIndentationLevel(strtest As String, Level As Int16)
             Assert.StartsWith(StrDup(4 * Level, " "), strtest)
+            Assert.NotEqual(" ", strtest.Substring(4 * Level, 1))
+        End Sub
+        Private Shared Sub TestIndentationLevelNumber(strtest As String, Level As Int16, Line As Int16)
+            Dim strNumTest As String = StrDup(4 * Level, " ")
+            If Line = 0 Then
+                strNumTest = strNumTest
+            Else
+                strNumTest = Line & strNumTest.Substring(Line.ToString.Length)
+            End If
+            Assert.StartsWith(strNumTest, strtest)
             Assert.NotEqual(" ", strtest.Substring(4 * Level, 1))
         End Sub
     End Class
