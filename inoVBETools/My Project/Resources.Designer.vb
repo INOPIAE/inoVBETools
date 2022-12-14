@@ -61,6 +61,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Error in line ähnelt.
+        '''</summary>
+        Friend ReadOnly Property ErrorInLine() As String
+            Get
+                Return ResourceManager.GetString("ErrorInLine", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die in procedure ähnelt.
+        '''</summary>
+        Friend ReadOnly Property ErrorInProcedure() As String
+            Get
+                Return ResourceManager.GetString("ErrorInProcedure", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
         '''</summary>
         Friend ReadOnly Property frmButtonCancel() As String
@@ -93,6 +111,15 @@ Namespace My.Resources
         Friend ReadOnly Property frmOptionsLanguage() As String
             Get
                 Return ResourceManager.GetString("frmOptionsLanguage", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Name of GoTo statement ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsNameOfGoToStatement() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsNameOfGoToStatement", resourceCulture)
             End Get
         End Property
         

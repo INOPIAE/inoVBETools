@@ -4,6 +4,7 @@ Imports inoVBETools.My.Resources
 Public Class FrmOptions
     Private Sub CmdOK_Click(sender As Object, e As EventArgs) Handles CmdOK.Click
         My.Settings.Language = Me.CboLanguage.Text
+        My.Settings.GotoError = Me.TxtErrHandling.Text
         My.Settings.Save()
         My.Application.ChangeUICulture(My.Settings.Language)
         Me.Close()
@@ -24,9 +25,10 @@ Public Class FrmOptions
 
         Me.CboLanguage.Text = My.Settings.Language
 
-
+        Me.TxtErrHandling.Text = My.Settings.GotoError
 
         Me.LblLanguage.Text = inoVBETools.My.Resources.frmOptionsLanguage
+        Me.LblErrHandling.Text = inoVBETools.My.Resources.FrmOptionsNameOfGoToStatement
         Me.CmdCancel.Text = inoVBETools.My.Resources.frmButtonCancel
         Me.CmdOK.Text = inoVBETools.My.Resources.frmButtonOK
         Me.LblLangInfo.Text = inoVBETools.My.Resources.FrmOptionsLangInfo

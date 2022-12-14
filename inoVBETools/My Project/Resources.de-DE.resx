@@ -150,4 +150,13 @@
   <data name="menuLineNumber4" xml:space="preserve">
     <value>Zeilennummerierung aktuelle Prozedur entfernen</value>
   </data>
+  <data name="FrmOptionsNameOfGoToStatement" xml:space="preserve">
+    <value>Name der Fehlersprungmarke</value>
+  </data>
+  <data name="ErrorInLine" xml:space="preserve">
+    <value>Fehler in Zeile</value>
+  </data>
+  <data name="ErrorInProcedure" xml:space="preserve">
+    <value>in Prozedur</value>
+  </data>
 </root>

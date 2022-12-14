@@ -65,6 +65,18 @@ Namespace My
                 Me("Language") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("ErrHandling")>  _
+        Public Property GotoError() As String
+            Get
+                Return CType(Me("GotoError"),String)
+            End Get
+            Set
+                Me("GotoError") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
