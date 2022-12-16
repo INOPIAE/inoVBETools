@@ -159,4 +159,16 @@
   <data name="ErrorInProcedure" xml:space="preserve">
     <value>in Prozedur</value>
   </data>
+  <data name="menuErrorHandlingDebug" xml:space="preserve">
+    <value>Fehlerbehandlung mit Debughinweis einfügen</value>
+  </data>
+  <data name="CMH_ModuleImported" xml:space="preserve">
+    <value>Das Module '{0}' ist schon importiert.</value>
+  </data>
+  <data name="CMH_Replace" xml:space="preserve">
+    <value>Soll es ersetzt werden?</value>
+  </data>
+  <data name="Msg_Hint" xml:space="preserve">
+    <value>Hinweis</value>
+  </data>
 </root>

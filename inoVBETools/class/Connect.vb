@@ -9,6 +9,7 @@ Imports Microsoft
 Imports Microsoft.Office.Core
 Imports System.Runtime.ConstrainedExecution
 Imports System.Reflection
+Imports System.IO
 'Imports Microsoft.Vbe.Interop.Forms
 
 <ComVisible(True), Guid("1B3515B2-6A73-40C8-9DA4-1766ED6600ED"), ProgId("inoVBETools.Connect")>
@@ -22,13 +23,15 @@ Public Class Connect
     Private WithEvents _MyLineNummeringButton2 As CommandBarButton = Nothing
     Private WithEvents _MyLineNummeringButton3 As CommandBarButton = Nothing
     Private WithEvents _MyLineNummeringButton4 As CommandBarButton = Nothing
-    Private WithEvents _MyErrorHandling As CommandBarButton = Nothing
+    Private WithEvents _MyErrorHandling1 As CommandBarButton = Nothing
+    Private WithEvents _MyErrorHandling2 As CommandBarButton = Nothing
     Private WithEvents _MySettings As CommandBarButton = Nothing
     Private WithEvents _MyIndentation As CommandBarButton = Nothing
 
     Private ClsIndent As New Indentation
     Private ClsVBEHandling As New VBEHandling
     Private ClsLineNumbering As New LineNumbering
+    Private ClsCodeModuleHandling As New CodeModuleHandling
 
     Public Sub OnConnection(Application As Object, ConnectMode As ext_ConnectMode, AddInInst As Object, ByRef custom As Array) Implements IDTExtensibility2.OnConnection
         Try
@@ -85,10 +88,14 @@ Public Class Connect
             With _MyLineNummeringButton4
                 .Caption = inoVBETools.My.Resources.menuLineNumber4
             End With
-            _MyErrorHandling = .Controls.Add(MsoControlType.msoControlButton)
-            With _MyErrorHandling
+            _MyErrorHandling1 = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyErrorHandling1
                 .Caption = inoVBETools.My.Resources.menuErrorHandling
                 .BeginGroup = True
+            End With
+            _MyErrorHandling2 = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyErrorHandling2
+                .Caption = inoVBETools.My.Resources.menuErrorHandlingDebug
             End With
             _MyIndentation = .Controls.Add(MsoControlType.msoControlButton)
             With _MyIndentation
@@ -107,7 +114,7 @@ Public Class Connect
         ClsLineNumbering.AddLineNumbersToComponent(_VBE.ActiveCodePane.CodeModule)
     End Sub
 
-    Private Sub _MyErrorHandling_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyErrorHandling.Click
+    Private Sub _MyErrorHandling1_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyErrorHandling1.Click
         Dim startline As Long
         Dim startcol As Long
         Dim endline As Long
@@ -130,6 +137,42 @@ Public Class Connect
 
         _VBE.ActiveCodePane.CodeModule.InsertLines(startline + 1, strVBA.ToString)
 
+    End Sub
+
+    Private Sub _MyErrorHandling2_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyErrorHandling2.Click
+        Dim startline As Long
+        Dim startcol As Long
+        Dim endline As Long
+        Dim endcol As Long
+
+        _VBE.ActiveCodePane.GetSelection(startline, startcol, endline, endcol)
+
+        Dim strVBA As New System.Text.StringBuilder
+
+        strVBA.Append("    On Error Goto " & My.Settings.GotoError)
+        strVBA.Append(vbCrLf & vbCrLf & vbCrLf)
+        strVBA.Append("    Exit " & ClsVBEHandling.GetFnOrSubTypeCurrentPosition(_VBE) & vbCrLf)
+        strVBA.Append(My.Settings.GotoError & ":" & vbCrLf)
+        strVBA.Append("    Select Case Err.Number" & vbCrLf)
+        strVBA.Append("        Case Else" & vbCrLf)
+        strVBA.Append("            Dim errMsg as String" & vbCrLf)
+        Dim strErr As String = String.Format("            errMsg = ""{0} "" & Erl & "" {1} '{2}'"" & vbNewLine _", inoVBETools.My.Resources.ErrorInLine, inoVBETools.My.Resources.ErrorInProcedure, ClsVBEHandling.GetFnOrSubNameOfCurrentPosition(_VBE))
+        strVBA.Append(strErr & vbCrLf)
+        strVBA.Append("                 & Err.Number & "" - "" & Err.Description" & vbCrLf)
+        strVBA.Append("            Select Case frmInoVBEError.ShowForm(errMsg)" & vbCrLf)
+        strVBA.Append("                 Case 1" & vbCrLf & vbCrLf)
+        strVBA.Append("                 Case 2" & vbCrLf)
+        strVBA.Append("                     Debug.Print errMsg" & vbCrLf)
+        strVBA.Append("                     Debug.Assert False" & vbCrLf)
+        strVBA.Append("            End Select" & vbCrLf)
+        strVBA.Append("    End Select")
+
+        _VBE.ActiveCodePane.CodeModule.InsertLines(startline + 1, strVBA.ToString)
+
+        Dim strErrorForm As String = Path.Combine(My.Application.Info.DirectoryPath, "ressources\vbafiles\frmInoVBEError.frm")
+        If ClsCodeModuleHandling.ModuleExists(strErrorForm, _VBE.ActiveVBProject) = False Then
+            ClsCodeModuleHandling.ImportCodeModule(_VBE.ActiveVBProject, strErrorForm)
+        End If
     End Sub
 
     Private Sub _MyLineNummeringButton2_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton2.Click
@@ -171,4 +214,6 @@ Public Class Connect
         _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
         _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
+
+
 End Class

@@ -88,6 +88,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="class\CodeModuleHandling.vb" />
     <Compile Include="class\Connect.vb" />
     <Compile Include="class\Indentation.vb" />
     <Compile Include="class\LineNumbering.vb" />
@@ -137,11 +138,15 @@
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
+    <None Include="ressources\vbafiles\frmInoVBEError.frm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="ressources\vbafiles\frmInoVBEError.frx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="sonstiges\inoVBETools.reg" />
     <None Include="sonstiges\text.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ressources\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

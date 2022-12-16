@@ -61,6 +61,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die The module &apos;{0}&apos; is already imported. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property CMH_ModuleImported() As String
+            Get
+                Return ResourceManager.GetString("CMH_ModuleImported", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Do you want to replace it? ähnelt.
+        '''</summary>
+        Friend ReadOnly Property CMH_Replace() As String
+            Get
+                Return ResourceManager.GetString("CMH_Replace", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Error in line ähnelt.
         '''</summary>
         Friend ReadOnly Property ErrorInLine() As String
@@ -133,6 +151,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Add error handling with debug message ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuErrorHandlingDebug() As String
+            Get
+                Return ResourceManager.GetString("menuErrorHandlingDebug", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Indentation ähnelt.
         '''</summary>
         Friend ReadOnly Property menuIndentationAll() As String
@@ -183,6 +210,15 @@ Namespace My.Resources
         Friend ReadOnly Property menuSettings() As String
             Get
                 Return ResourceManager.GetString("menuSettings", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Hint ähnelt.
+        '''</summary>
+        Friend ReadOnly Property Msg_Hint() As String
+            Get
+                Return ResourceManager.GetString("Msg_Hint", resourceCulture)
             End Get
         End Property
     End Module
