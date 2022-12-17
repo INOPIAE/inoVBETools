@@ -177,4 +177,7 @@
   <data name="menuCodeExportImport" xml:space="preserve">
     <value>Code Export/Import</value>
   </data>
+  <data name="menuImport" xml:space="preserve">
+    <value>Code importieren</value>
+  </data>
 </root>

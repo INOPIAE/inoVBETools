@@ -178,6 +178,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Import code ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuImport() As String
+            Get
+                Return ResourceManager.GetString("menuImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Indentation ähnelt.
         '''</summary>
         Friend ReadOnly Property menuIndentationAll() As String

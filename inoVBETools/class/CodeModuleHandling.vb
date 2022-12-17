@@ -48,7 +48,7 @@ Public Class CodeModuleHandling
                 Case vbext_ComponentType.vbext_ct_ClassModule
                     strExtension = ".cls"
                 Case vbext_ComponentType.vbext_ct_Document
-                    strExtension = ".cls"
+                    strExtension = ".dcls"
                 Case vbext_ComponentType.vbext_ct_MSForm
                     strExtension = ".frm"
             End Select
@@ -57,6 +57,22 @@ Public Class CodeModuleHandling
             End If
 
         Next
+    End Sub
+
+    Public Sub ImportModules(vbeProject As VBProject, strPath As String)
+        If MessageBox.Show("All existing code modules will be overwritten. Do you want to continue", "Import Modules", MessageBoxButtons.YesNo) = vbYes Then
+            Dim di As New IO.DirectoryInfo(strPath)
+            Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
+            Dim fi As IO.FileInfo
+
+            For Each fi In aryFi
+                Select Case fi.Extension
+                    Case ".cls", ".frm", ".bas"
+                        ImportCodeModule(vbeProject, fi.FullName)
+                End Select
+            Next
+        End If
+
     End Sub
     Function ComponentTypeToString(ComponentType As vbext_ComponentType) As String
         'ComponentTypeToString from http://www.cpearson.com/excel/vbe.aspx
