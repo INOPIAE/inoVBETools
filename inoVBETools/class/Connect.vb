@@ -65,8 +65,7 @@ Public Class Connect
         SetLanguage()
 
         cbr = _VBE.CommandBars("Menüleiste")
-        '  cbrAddIns = cbr.Controls.Item("Add-&Ins")
-        cbrSub = cbr.Controls.Add(MsoControlType.msoControlPopup)
+        cbrSub = cbr.Controls.Add(MsoControlType.msoControlPopup, Before:=10)
         With cbrSub
             .Caption = "inoVBETools"
             '.BeginGroup = True
