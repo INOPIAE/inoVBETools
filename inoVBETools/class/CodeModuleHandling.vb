@@ -37,6 +37,27 @@ Public Class CodeModuleHandling
         Next
         Return Nothing
     End Function
+
+    Public Sub ExportModules(vbeProject As VBProject, strPath As String)
+
+        For Each vbmodule As VBComponent In vbeProject.VBComponents
+            Dim strExtension As String = ""
+            Select Case vbmodule.Type
+                Case vbext_ComponentType.vbext_ct_StdModule
+                    strExtension = ".bas"
+                Case vbext_ComponentType.vbext_ct_ClassModule
+                    strExtension = ".cls"
+                Case vbext_ComponentType.vbext_ct_Document
+                    strExtension = ".cls"
+                Case vbext_ComponentType.vbext_ct_MSForm
+                    strExtension = ".frm"
+            End Select
+            If strExtension <> "" Then
+                vbmodule.Export(strPath & vbmodule.Name & strExtension)
+            End If
+
+        Next
+    End Sub
     Function ComponentTypeToString(ComponentType As vbext_ComponentType) As String
         'ComponentTypeToString from http://www.cpearson.com/excel/vbe.aspx
         Select Case ComponentType

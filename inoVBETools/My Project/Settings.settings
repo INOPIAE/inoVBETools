@@ -8,5 +8,8 @@
     <Setting Name="GotoError" Type="System.String" Scope="User">
       <Value Profile="(Default)">ErrHandling</Value>
     </Setting>
+    <Setting Name="LastExportFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

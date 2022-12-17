@@ -171,4 +171,10 @@
   <data name="Msg_Hint" xml:space="preserve">
     <value>Hinweis</value>
   </data>
+  <data name="menuExportCode" xml:space="preserve">
+    <value>Code exportieren</value>
+  </data>
+  <data name="menuCodeExportImport" xml:space="preserve">
+    <value>Code Export/Import</value>
+  </data>
 </root>

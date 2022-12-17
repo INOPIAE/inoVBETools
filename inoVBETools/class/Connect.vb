@@ -25,6 +25,8 @@ Public Class Connect
     Private WithEvents _MyLineNummeringButton4 As CommandBarButton = Nothing
     Private WithEvents _MyErrorHandling1 As CommandBarButton = Nothing
     Private WithEvents _MyErrorHandling2 As CommandBarButton = Nothing
+    Private WithEvents _MyExport As CommandBarButton = Nothing
+    Private WithEvents _MyGitExport As CommandBarButton = Nothing
     Private WithEvents _MySettings As CommandBarButton = Nothing
     Private WithEvents _MyIndentation As CommandBarButton = Nothing
 
@@ -64,7 +66,7 @@ Public Class Connect
         Dim cbr As CommandBar
         Dim cbrAddIns As CommandBarPopup = Nothing
         Dim cbrSub As CommandBarPopup = Nothing
-
+        Dim cbrExport As CommandBarPopup = Nothing
         SetLanguage()
 
         cbr = _VBE.CommandBars("Menüleiste")
@@ -102,6 +104,22 @@ Public Class Connect
                 .Caption = inoVBETools.My.Resources.menuIndentationAll
                 .BeginGroup = True
             End With
+
+            cbrExport = .Controls.Add(MsoControlType.msoControlPopup)
+            With cbrExport
+                .Caption = inoVBETools.My.Resources.menuExportCode
+                .BeginGroup = True
+            End With
+            _MyExport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
+            With _MyExport
+                .Caption = inoVBETools.My.Resources.menuCodeExportImport
+                .BeginGroup = True
+            End With
+            '_MyGitExport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
+            'With _MyGitExport
+            '    .Caption = inoVBETools.My.Resources.menuExportCode
+            '    .BeginGroup = True
+            'End With
             _MySettings = .Controls.Add(MsoControlType.msoControlButton)
             With _MySettings
                 .Caption = inoVBETools.My.Resources.menuSettings
@@ -215,5 +233,27 @@ Public Class Connect
         _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
 
+    Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
+        Dim fbd As New FolderBrowserDialog
+        With fbd
+            .SelectedPath = My.Settings.LastExportFolder
+            If .ShowDialog = DialogResult.OK Then
+                My.Settings.LastExportFolder = .SelectedPath
+                My.Settings.Save()
+                ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
+            End If
+        End With
+    End Sub
 
+    Private Sub _MyExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyExport.Click
+        Dim fbd As New FolderBrowserDialog
+        With fbd
+            .SelectedPath = My.Settings.LastExportFolder
+            If .ShowDialog = DialogResult.OK Then
+                My.Settings.LastExportFolder = .SelectedPath
+                My.Settings.Save()
+                ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
+            End If
+        End With
+    End Sub
 End Class

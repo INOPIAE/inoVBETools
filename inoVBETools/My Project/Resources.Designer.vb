@@ -142,6 +142,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Code export/import ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuCodeExportImport() As String
+            Get
+                Return ResourceManager.GetString("menuCodeExportImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Add error handling ähnelt.
         '''</summary>
         Friend ReadOnly Property menuErrorHandling() As String
@@ -156,6 +165,15 @@ Namespace My.Resources
         Friend ReadOnly Property menuErrorHandlingDebug() As String
             Get
                 Return ResourceManager.GetString("menuErrorHandlingDebug", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Export code ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuExportCode() As String
+            Get
+                Return ResourceManager.GetString("menuExportCode", resourceCulture)
             End Get
         End Property
         
