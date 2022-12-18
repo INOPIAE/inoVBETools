@@ -189,4 +189,16 @@
   <data name="CHMTitleImport" xml:space="preserve">
     <value>Import Module</value>
   </data>
+  <data name="FrmOptionsImportGrp" xml:space="preserve">
+    <value>Importeinstellungen für Code Module</value>
+  </data>
+  <data name="FrmOptionsCaption" xml:space="preserve">
+    <value>Einstellungen für inoVBETools</value>
+  </data>
+  <data name="FrmOptionsKeepBackup" xml:space="preserve">
+    <value>Backup-Dateien beibehalten</value>
+  </data>
+  <data name="FrmOptionsCreateBackup" xml:space="preserve">
+    <value>Backup-Dateien vor dem Import erstellen</value>
+  </data>
 </root>

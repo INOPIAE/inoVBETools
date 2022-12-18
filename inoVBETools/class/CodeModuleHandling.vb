@@ -71,7 +71,8 @@ Public Class CodeModuleHandling
     End Sub
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
-        MakeBackup(vbeProject, strPath)
+        If My.Settings.MakeBackup Then MakeBackup(vbeProject, strPath)
+
         If MessageBox.Show(inoVBETools.My.Resources.CMHOverwrite & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
@@ -146,8 +147,12 @@ Public Class CodeModuleHandling
     End Function
 
     Public Sub MakeBackup(vbeProject As VBProject, strPath As String)
-
         strPath = Path.Combine(strPath, "backup_code")
+
+        If My.Settings.KeepBackup = False Then
+            Directory.Delete(strPath, True)
+        End If
+
         If Not Directory.Exists(strPath) Then
             Directory.CreateDirectory(strPath)
             ClsGit.AppendToGitIgnoreFile(strPath, ".frm")
@@ -157,6 +162,7 @@ Public Class CodeModuleHandling
             ClsGit.AppendToGitIgnoreFile(strPath, ".dcls")
         End If
         Dim strDate As String = Format(Now, "yyyyMMdd_hhmm")
+
         ExportModules(vbeProject, strPath & "\", strDate)
     End Sub
 End Class

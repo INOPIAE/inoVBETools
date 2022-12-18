@@ -29,6 +29,10 @@ Partial Class FrmOptions
         Me.LblLangInfo = New System.Windows.Forms.Label()
         Me.TxtErrHandling = New System.Windows.Forms.TextBox()
         Me.LblErrHandling = New System.Windows.Forms.Label()
+        Me.GrpImport = New System.Windows.Forms.GroupBox()
+        Me.ChbBackup = New System.Windows.Forms.CheckBox()
+        Me.ChbKeepBackup = New System.Windows.Forms.CheckBox()
+        Me.GrpImport.SuspendLayout()
         Me.SuspendLayout()
         '
         'CboLanguage
@@ -44,9 +48,9 @@ Partial Class FrmOptions
         Me.LblLanguage.AutoSize = True
         Me.LblLanguage.Location = New System.Drawing.Point(44, 45)
         Me.LblLanguage.Name = "LblLanguage"
-        Me.LblLanguage.Size = New System.Drawing.Size(39, 13)
+        Me.LblLanguage.Size = New System.Drawing.Size(55, 13)
         Me.LblLanguage.TabIndex = 1
-        Me.LblLanguage.Text = "Label1"
+        Me.LblLanguage.Text = "Language"
         '
         'CmdCancel
         '
@@ -71,9 +75,9 @@ Partial Class FrmOptions
         Me.LblLangInfo.AutoSize = True
         Me.LblLangInfo.Location = New System.Drawing.Point(44, 223)
         Me.LblLangInfo.Name = "LblLangInfo"
-        Me.LblLangInfo.Size = New System.Drawing.Size(39, 13)
+        Me.LblLangInfo.Size = New System.Drawing.Size(76, 13)
         Me.LblLangInfo.TabIndex = 3
-        Me.LblLangInfo.Text = "Label1"
+        Me.LblLangInfo.Text = "Language Info"
         '
         'TxtErrHandling
         '
@@ -87,15 +91,47 @@ Partial Class FrmOptions
         Me.LblErrHandling.AutoSize = True
         Me.LblErrHandling.Location = New System.Drawing.Point(44, 87)
         Me.LblErrHandling.Name = "LblErrHandling"
-        Me.LblErrHandling.Size = New System.Drawing.Size(39, 13)
+        Me.LblErrHandling.Size = New System.Drawing.Size(60, 13)
         Me.LblErrHandling.TabIndex = 1
-        Me.LblErrHandling.Text = "Label1"
+        Me.LblErrHandling.Text = "Errhandling"
+        '
+        'GrpImport
+        '
+        Me.GrpImport.Controls.Add(Me.ChbKeepBackup)
+        Me.GrpImport.Controls.Add(Me.ChbBackup)
+        Me.GrpImport.Location = New System.Drawing.Point(47, 110)
+        Me.GrpImport.Name = "GrpImport"
+        Me.GrpImport.Size = New System.Drawing.Size(381, 110)
+        Me.GrpImport.TabIndex = 5
+        Me.GrpImport.TabStop = False
+        Me.GrpImport.Text = "ImportCode"
+        '
+        'ChbBackup
+        '
+        Me.ChbBackup.AutoSize = True
+        Me.ChbBackup.Location = New System.Drawing.Point(22, 19)
+        Me.ChbBackup.Name = "ChbBackup"
+        Me.ChbBackup.Size = New System.Drawing.Size(63, 17)
+        Me.ChbBackup.TabIndex = 0
+        Me.ChbBackup.Text = "Backup"
+        Me.ChbBackup.UseVisualStyleBackColor = True
+        '
+        'ChbKeepBackup
+        '
+        Me.ChbKeepBackup.AutoSize = True
+        Me.ChbKeepBackup.Location = New System.Drawing.Point(22, 42)
+        Me.ChbKeepBackup.Name = "ChbKeepBackup"
+        Me.ChbKeepBackup.Size = New System.Drawing.Size(88, 17)
+        Me.ChbKeepBackup.TabIndex = 0
+        Me.ChbKeepBackup.Text = "KeepBackup"
+        Me.ChbKeepBackup.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.GrpImport)
         Me.Controls.Add(Me.TxtErrHandling)
         Me.Controls.Add(Me.LblLangInfo)
         Me.Controls.Add(Me.CmdOK)
@@ -105,6 +141,8 @@ Partial Class FrmOptions
         Me.Controls.Add(Me.CboLanguage)
         Me.Name = "FrmOptions"
         Me.Text = "FrmOptions"
+        Me.GrpImport.ResumeLayout(False)
+        Me.GrpImport.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -117,4 +155,7 @@ Partial Class FrmOptions
     Friend WithEvents LblLangInfo As Windows.Forms.Label
     Friend WithEvents TxtErrHandling As Windows.Forms.TextBox
     Friend WithEvents LblErrHandling As Windows.Forms.Label
+    Friend WithEvents GrpImport As Windows.Forms.GroupBox
+    Friend WithEvents ChbKeepBackup As Windows.Forms.CheckBox
+    Friend WithEvents ChbBackup As Windows.Forms.CheckBox
 End Class

@@ -133,6 +133,42 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die inoVBETools settings ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsCaption() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsCaption", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Create backup file prior to import ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsCreateBackup() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsCreateBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Import settings for code modules ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsImportGrp() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsImportGrp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Keep backup files ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsKeepBackup() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsKeepBackup", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Langauge settings will be applied with the next restart of the host application. ähnelt.
         '''</summary>
         Friend ReadOnly Property FrmOptionsLangInfo() As String
