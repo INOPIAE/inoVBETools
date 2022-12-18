@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Import Modules ähnelt.
+        '''</summary>
+        Friend ReadOnly Property CHMTitleImport() As String
+            Get
+                Return ResourceManager.GetString("CHMTitleImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die The module &apos;{0}&apos; is already imported. ähnelt.
         '''</summary>
         Friend ReadOnly Property CMH_ModuleImported() As String
@@ -75,6 +84,15 @@ Namespace My.Resources
         Friend ReadOnly Property CMH_Replace() As String
             Get
                 Return ResourceManager.GetString("CMH_Replace", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die All existing code modules will be overwritten. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property CMHOverwrite() As String
+            Get
+                Return ResourceManager.GetString("CMHOverwrite", resourceCulture)
             End Get
         End Property
         
@@ -246,6 +264,15 @@ Namespace My.Resources
         Friend ReadOnly Property Msg_Hint() As String
             Get
                 Return ResourceManager.GetString("Msg_Hint", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Do you want to continue? ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgContinue() As String
+            Get
+                Return ResourceManager.GetString("msgContinue", resourceCulture)
             End Get
         End Property
     End Module

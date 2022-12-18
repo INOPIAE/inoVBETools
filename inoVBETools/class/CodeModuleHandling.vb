@@ -62,7 +62,7 @@ Public Class CodeModuleHandling
     End Sub
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
-        If MessageBox.Show("All existing code modules will be overwritten. Do you want to continue?", "Import Modules", MessageBoxButtons.YesNo) = vbYes Then
+        If MessageBox.Show(inoVBETools.My.Resources.CMHOverwrite & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
             Dim fi As IO.FileInfo

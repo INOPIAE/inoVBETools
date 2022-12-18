@@ -180,4 +180,13 @@
   <data name="menuImport" xml:space="preserve">
     <value>Code importieren</value>
   </data>
+  <data name="CMHOverwrite" xml:space="preserve">
+    <value>Alle bestehende Codemodule werden überschrieben.</value>
+  </data>
+  <data name="msgContinue" xml:space="preserve">
+    <value>Wollen Sie fortfahren?</value>
+  </data>
+  <data name="CHMTitleImport" xml:space="preserve">
+    <value>Import Module</value>
+  </data>
 </root>
