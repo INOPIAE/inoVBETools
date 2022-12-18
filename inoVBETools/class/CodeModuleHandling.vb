@@ -1,4 +1,6 @@
-﻿Imports System.Runtime.Remoting.Metadata.W3cXsd2001
+﻿Imports System.IO
+Imports System.Runtime.Remoting.Metadata.W3cXsd2001
+Imports System.Text
 Imports System.Windows.Forms
 Imports Microsoft
 Imports Microsoft.Office.Interop.Excel
@@ -6,12 +8,12 @@ Imports Microsoft.Vbe.Interop
 Public Class CodeModuleHandling
 
     Public Sub ImportCodeModule(vbeProject As VBProject, ModuleFullPath As String, Optional blnMessage As Boolean = False)
-        Dim ModuleNameA() As String = ModuleFullPath.Split("\")
-        Dim ModuleName() As String = ModuleNameA.Last.Split(".")
 
-        If ModuleExists(ModuleName.First, vbeProject) And blnMessage Then
-            If MessageBox.Show(String.Format(inoVBETools.My.Resources.CMH_ModuleImported, ModuleName.First) & vbCrLf & inoVBETools.My.Resources.CMH_Replace, inoVBETools.My.Resources.Msg_Hint, MessageBoxButtons.YesNo) = vbYes Then
-                vbeProject.VBComponents.Remove(GetModuleByName(ModuleName.First, vbeProject))
+        Dim ModuleName As String = getModuleNameFromPath(ModuleFullPath)
+
+        If ModuleExists(ModuleName, vbeProject) And blnMessage Then
+            If MessageBox.Show(String.Format(inoVBETools.My.Resources.CMH_ModuleImported, ModuleName) & vbCrLf & inoVBETools.My.Resources.CMH_Replace, inoVBETools.My.Resources.Msg_Hint, MessageBoxButtons.YesNo) = vbYes Then
+                vbeProject.VBComponents.Remove(GetComponentByName(ModuleName, vbeProject))
             Else
                 Exit Sub
             End If
@@ -29,7 +31,7 @@ Public Class CodeModuleHandling
         Return False
     End Function
 
-    Public Function GetModuleByName(Modulename As String, vbeProject As VBProject) As VBComponent
+    Public Function GetComponentByName(Modulename As String, vbeProject As VBProject) As VBComponent
         For Each vbmodule As VBComponent In vbeProject.VBComponents
             If vbmodule.Name.ToLower = Modulename.ToLower Then
                 Return vbmodule
@@ -60,7 +62,7 @@ Public Class CodeModuleHandling
     End Sub
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
-        If MessageBox.Show("All existing code modules will be overwritten. Do you want to continue", "Import Modules", MessageBoxButtons.YesNo) = vbYes Then
+        If MessageBox.Show("All existing code modules will be overwritten. Do you want to continue?", "Import Modules", MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
             Dim fi As IO.FileInfo
@@ -69,6 +71,8 @@ Public Class CodeModuleHandling
                 Select Case fi.Extension
                     Case ".cls", ".frm", ".bas"
                         ImportCodeModule(vbeProject, fi.FullName)
+                    Case ".dcls"
+                        ImportCodeModuleSpecial(vbeProject, fi.FullName)
                 End Select
             Next
         End If
@@ -100,4 +104,35 @@ Public Class CodeModuleHandling
         End Select
 
     End Function
+
+    Private Sub ImportCodeModuleSpecial(vbeProject As VBProject, strPath As String)
+        Dim ModuleName As String = getModuleNameFromPath(strPath)
+        Dim reader As New StreamReader(strPath, Encoding.Default)
+        Dim intLines As Int16 = 1
+
+
+        Dim CodeComponent As VBComponent = GetComponentByName(ModuleName, vbeProject)
+        CodeComponent.CodeModule.DeleteLines(1, CodeComponent.CodeModule.CountOfLines)
+
+
+        Dim strCode As String = ""
+        Do Until reader.EndOfStream
+            Dim codeline As String = reader.ReadLine
+            If intLines > 9 Then
+                strCode &= codeline & vbCrLf
+            End If
+            intLines += 1
+        Loop
+        reader.Close()
+
+        CodeComponent.CodeModule.InsertLines(1, strCode)
+
+    End Sub
+
+    Public Function getModuleNameFromPath(strPath As String) As String
+        Dim ModuleNameA() As String = strPath.Split("\")
+        Dim ModuleName() As String = ModuleNameA.Last.Split(".")
+        Return ModuleName.First
+    End Function
+
 End Class
