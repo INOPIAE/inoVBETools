@@ -2,11 +2,13 @@
 Imports System.Runtime.Remoting.Metadata.W3cXsd2001
 Imports System.Text
 Imports System.Windows.Forms
+Imports System.Windows.Forms.AxHost
 Imports Microsoft
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Vbe.Interop
 Public Class CodeModuleHandling
 
+    Private ClsGit As New GitHandling
     Public Sub ImportCodeModule(vbeProject As VBProject, ModuleFullPath As String, Optional blnMessage As Boolean = False)
 
         Dim ModuleName As String = getModuleNameFromPath(ModuleFullPath)
@@ -42,6 +44,12 @@ Public Class CodeModuleHandling
 
     Public Sub ExportModules(vbeProject As VBProject, strPath As String)
 
+        ExportModules(vbeProject, strPath, "")
+
+    End Sub
+
+    Public Sub ExportModules(vbeProject As VBProject, strPath As String, strDate As String)
+
         For Each vbmodule As VBComponent In vbeProject.VBComponents
             Dim strExtension As String = ""
             Select Case vbmodule.Type
@@ -56,12 +64,14 @@ Public Class CodeModuleHandling
             End Select
             If strExtension <> "" Then
                 vbmodule.Export(strPath & vbmodule.Name & strExtension)
+                My.Computer.FileSystem.RenameFile(strPath & vbmodule.Name & strExtension, vbmodule.Name & strDate & strExtension)
             End If
 
         Next
     End Sub
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
+        MakeBackup(vbeProject, strPath)
         If MessageBox.Show(inoVBETools.My.Resources.CMHOverwrite & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
@@ -135,4 +145,18 @@ Public Class CodeModuleHandling
         Return ModuleName.First
     End Function
 
+    Public Sub MakeBackup(vbeProject As VBProject, strPath As String)
+
+        strPath = Path.Combine(strPath, "backup_code")
+        If Not Directory.Exists(strPath) Then
+            Directory.CreateDirectory(strPath)
+            ClsGit.AppendToGitIgnoreFile(strPath, ".frm")
+            ClsGit.AppendToGitIgnoreFile(strPath, ".frx")
+            ClsGit.AppendToGitIgnoreFile(strPath, ".cls")
+            ClsGit.AppendToGitIgnoreFile(strPath, ".bas")
+            ClsGit.AppendToGitIgnoreFile(strPath, ".dcls")
+        End If
+        Dim strDate As String = Format(Now, "yyyyMMdd_hhmm")
+        ExportModules(vbeProject, strPath & "\", strDate)
+    End Sub
 End Class

@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="class\CodeModuleHandling.vb" />
     <Compile Include="class\Connect.vb" />
+    <Compile Include="class\GitHandling.vb" />
     <Compile Include="class\Indentation.vb" />
     <Compile Include="class\LineNumbering.vb" />
     <Compile Include="class\VBEHandling.vb" />
