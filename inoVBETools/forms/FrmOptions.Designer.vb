@@ -30,8 +30,8 @@ Partial Class FrmOptions
         Me.TxtErrHandling = New System.Windows.Forms.TextBox()
         Me.LblErrHandling = New System.Windows.Forms.Label()
         Me.GrpImport = New System.Windows.Forms.GroupBox()
-        Me.ChbBackup = New System.Windows.Forms.CheckBox()
         Me.ChbKeepBackup = New System.Windows.Forms.CheckBox()
+        Me.ChbBackup = New System.Windows.Forms.CheckBox()
         Me.GrpImport.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -73,7 +73,7 @@ Partial Class FrmOptions
         'LblLangInfo
         '
         Me.LblLangInfo.AutoSize = True
-        Me.LblLangInfo.Location = New System.Drawing.Point(44, 223)
+        Me.LblLangInfo.Location = New System.Drawing.Point(44, 74)
         Me.LblLangInfo.Name = "LblLangInfo"
         Me.LblLangInfo.Size = New System.Drawing.Size(76, 13)
         Me.LblLangInfo.TabIndex = 3
@@ -81,7 +81,7 @@ Partial Class FrmOptions
         '
         'TxtErrHandling
         '
-        Me.TxtErrHandling.Location = New System.Drawing.Point(187, 84)
+        Me.TxtErrHandling.Location = New System.Drawing.Point(187, 95)
         Me.TxtErrHandling.Name = "TxtErrHandling"
         Me.TxtErrHandling.Size = New System.Drawing.Size(154, 20)
         Me.TxtErrHandling.TabIndex = 4
@@ -89,7 +89,7 @@ Partial Class FrmOptions
         'LblErrHandling
         '
         Me.LblErrHandling.AutoSize = True
-        Me.LblErrHandling.Location = New System.Drawing.Point(44, 87)
+        Me.LblErrHandling.Location = New System.Drawing.Point(44, 98)
         Me.LblErrHandling.Name = "LblErrHandling"
         Me.LblErrHandling.Size = New System.Drawing.Size(60, 13)
         Me.LblErrHandling.TabIndex = 1
@@ -99,22 +99,12 @@ Partial Class FrmOptions
         '
         Me.GrpImport.Controls.Add(Me.ChbKeepBackup)
         Me.GrpImport.Controls.Add(Me.ChbBackup)
-        Me.GrpImport.Location = New System.Drawing.Point(47, 110)
+        Me.GrpImport.Location = New System.Drawing.Point(47, 121)
         Me.GrpImport.Name = "GrpImport"
-        Me.GrpImport.Size = New System.Drawing.Size(381, 110)
+        Me.GrpImport.Size = New System.Drawing.Size(381, 75)
         Me.GrpImport.TabIndex = 5
         Me.GrpImport.TabStop = False
         Me.GrpImport.Text = "ImportCode"
-        '
-        'ChbBackup
-        '
-        Me.ChbBackup.AutoSize = True
-        Me.ChbBackup.Location = New System.Drawing.Point(22, 19)
-        Me.ChbBackup.Name = "ChbBackup"
-        Me.ChbBackup.Size = New System.Drawing.Size(63, 17)
-        Me.ChbBackup.TabIndex = 0
-        Me.ChbBackup.Text = "Backup"
-        Me.ChbBackup.UseVisualStyleBackColor = True
         '
         'ChbKeepBackup
         '
@@ -125,6 +115,16 @@ Partial Class FrmOptions
         Me.ChbKeepBackup.TabIndex = 0
         Me.ChbKeepBackup.Text = "KeepBackup"
         Me.ChbKeepBackup.UseVisualStyleBackColor = True
+        '
+        'ChbBackup
+        '
+        Me.ChbBackup.AutoSize = True
+        Me.ChbBackup.Location = New System.Drawing.Point(22, 19)
+        Me.ChbBackup.Name = "ChbBackup"
+        Me.ChbBackup.Size = New System.Drawing.Size(63, 17)
+        Me.ChbBackup.TabIndex = 0
+        Me.ChbBackup.Text = "Backup"
+        Me.ChbBackup.UseVisualStyleBackColor = True
         '
         'FrmOptions
         '

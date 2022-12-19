@@ -116,11 +116,11 @@ Public Class Connect
                 .Caption = inoVBETools.My.Resources.menuExportCode
                 .BeginGroup = True
             End With
-            '_MyGitExport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
-            'With _MyGitExport
-            '    .Caption = inoVBETools.My.Resources.menuExportCode
-            '    .BeginGroup = True
-            'End With
+            _MyGitExport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
+            With _MyGitExport
+                .Caption = "Git"
+                .BeginGroup = True
+            End With
             _MyImport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
             With _MyImport
                 .Caption = inoVBETools.My.Resources.menuImport
@@ -240,15 +240,17 @@ Public Class Connect
     End Sub
 
     Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
-        Dim fbd As New FolderBrowserDialog
-        With fbd
-            .SelectedPath = My.Settings.LastExportFolder
-            If .ShowDialog = DialogResult.OK Then
-                My.Settings.LastExportFolder = .SelectedPath
-                My.Settings.Save()
-                ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
-            End If
-        End With
+        'Dim fbd As New FolderBrowserDialog
+        'With fbd
+        '    .SelectedPath = My.Settings.LastExportFolder
+        '    If .ShowDialog = DialogResult.OK Then
+        '        My.Settings.LastExportFolder = .SelectedPath
+        '        My.Settings.Save()
+        '        ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
+        '    End If
+        'End With
+        Dim frm As New FrmGit
+        frm.Show()
     End Sub
 
     Private Sub _MyExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyExport.Click

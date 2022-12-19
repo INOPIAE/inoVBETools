@@ -94,6 +94,12 @@
     <Compile Include="class\Indentation.vb" />
     <Compile Include="class\LineNumbering.vb" />
     <Compile Include="class\VBEHandling.vb" />
+    <Compile Include="forms\FrmGit.Designer.vb">
+      <DependentUpon>FrmGit.vb</DependentUpon>
+    </Compile>
+    <Compile Include="forms\FrmGit.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="forms\FrmOptions.Designer.vb">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="forms\FrmGit.resx">
+      <DependentUpon>FrmGit.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forms\FrmOptions.resx">
       <DependentUpon>FrmOptions.vb</DependentUpon>
     </EmbeddedResource>

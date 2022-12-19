@@ -113,6 +113,30 @@ Namespace My
                 Me("KeepBackup") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("""C:\Program Files\Git\cmd\git.exe""")>  _
+        Public Property Git_Exe() As String
+            Get
+                Return CType(Me("Git_Exe"),String)
+            End Get
+            Set
+                Me("Git_Exe") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property WorkingDirectory() As String
+            Get
+                Return CType(Me("WorkingDirectory"),String)
+            End Get
+            Set
+                Me("WorkingDirectory") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
