@@ -248,25 +248,37 @@ Public Class Connect
     End Sub
 
     Private Sub _MyExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyExport.Click
-        Dim fbd As New FolderBrowserDialog
-        With fbd
-            .SelectedPath = My.Settings.LastExportFolder
+        Dim ofd As New OpenFileDialog
+        With ofd
+            .ValidateNames = False
+            .CheckFileExists = False
+            .CheckPathExists = True
+            .InitialDirectory = My.Settings.LastExportFolder
+            .Multiselect = False
+            .Title = String.Format(inoVBETools.My.Resources.ConnectExportTitle, inoVBETools.My.Resources.ConnectTemporaryFileName)
+            .FileName = inoVBETools.My.Resources.ConnectTemporaryFileName
             If .ShowDialog = DialogResult.OK Then
-                My.Settings.LastExportFolder = .SelectedPath
+                My.Settings.LastExportFolder = Path.GetDirectoryName(.FileName)
                 My.Settings.Save()
-                ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
+                ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, My.Settings.LastExportFolder & "\")
             End If
         End With
     End Sub
 
     Private Sub _MyImport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyImport.Click
-        Dim fbd As New FolderBrowserDialog
-        With fbd
-            .SelectedPath = My.Settings.LastExportFolder
+        Dim ofd As New OpenFileDialog
+        With ofd
+            .ValidateNames = False
+            .CheckFileExists = False
+            .CheckPathExists = True
+            .InitialDirectory = My.Settings.LastExportFolder
+            .Multiselect = False
+            .Title = String.Format(inoVBETools.My.Resources.ConnectImportTitle, inoVBETools.My.Resources.ConnectTemporaryFileName)
+            .FileName = inoVBETools.My.Resources.ConnectTemporaryFileName
             If .ShowDialog = DialogResult.OK Then
-                My.Settings.LastExportFolder = .SelectedPath
+                My.Settings.LastExportFolder = Path.GetDirectoryName(.FileName)
                 My.Settings.Save()
-                ClsCodeModuleHandling.ImportModules(_VBE.ActiveVBProject, .SelectedPath & "\")
+                ClsCodeModuleHandling.ImportModules(_VBE.ActiveVBProject, My.Settings.LastExportFolder & "\")
             End If
         End With
     End Sub

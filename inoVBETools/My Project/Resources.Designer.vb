@@ -97,6 +97,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Select folder to export to. Just select the folder and keep the filename &apos;{0}&apos;. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property ConnectExportTitle() As String
+            Get
+                Return ResourceManager.GetString("ConnectExportTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Select folder to import from. Just select the folder and keep the filename &apos;{0} ähnelt.
+        '''</summary>
+        Friend ReadOnly Property ConnectImportTitle() As String
+            Get
+                Return ResourceManager.GetString("ConnectImportTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die temporary file name ähnelt.
+        '''</summary>
+        Friend ReadOnly Property ConnectTemporaryFileName() As String
+            Get
+                Return ResourceManager.GetString("ConnectTemporaryFileName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Error in line ähnelt.
         '''</summary>
         Friend ReadOnly Property ErrorInLine() As String

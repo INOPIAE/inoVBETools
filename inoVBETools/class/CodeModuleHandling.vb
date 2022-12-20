@@ -64,7 +64,7 @@ Public Class CodeModuleHandling
             End Select
             If strExtension <> "" Then
                 vbmodule.Export(strPath & vbmodule.Name & strExtension)
-                My.Computer.FileSystem.RenameFile(strPath & vbmodule.Name & strExtension, vbmodule.Name & strDate & strExtension)
+                My.Computer.FileSystem.RenameFile(strPath & vbmodule.Name & strExtension, vbmodule.Name & "_" & strDate & strExtension)
             End If
 
         Next

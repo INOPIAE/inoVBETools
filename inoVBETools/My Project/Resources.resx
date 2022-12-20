@@ -240,4 +240,13 @@
   <data name="msgMissingGit" xml:space="preserve">
     <value>You must define the path to git.exe in settings.</value>
   </data>
+  <data name="ConnectTemporaryFileName" xml:space="preserve">
+    <value>temporary file name</value>
+  </data>
+  <data name="ConnectExportTitle" xml:space="preserve">
+    <value>Select folder to export to. Just select the folder and keep the filename '{0}'.</value>
+  </data>
+  <data name="ConnectImportTitle" xml:space="preserve">
+    <value>Select folder to import from. Just select the folder and keep the filename '{0}</value>
+  </data>
 </root>
