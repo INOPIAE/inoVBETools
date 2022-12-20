@@ -115,6 +115,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Add to stage ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmButtonAddToStage() As String
+            Get
+                Return ResourceManager.GetString("FrmButtonAddToStage", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Cancel ähnelt.
         '''</summary>
         Friend ReadOnly Property frmButtonCancel() As String
@@ -129,6 +138,33 @@ Namespace My.Resources
         Friend ReadOnly Property frmButtonOK() As String
             Get
                 Return ResourceManager.GetString("frmButtonOK", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Remove from stage ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmButtonRemoveFromStage() As String
+            Get
+                Return ResourceManager.GetString("FrmButtonRemoveFromStage", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Git file handling ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmGitCaption() As String
+            Get
+                Return ResourceManager.GetString("FrmGitCaption", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Commit message ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmGitLblCommitMsg() As String
+            Get
+                Return ResourceManager.GetString("FrmGitLblCommitMsg", resourceCulture)
             End Get
         End Property
         
@@ -196,6 +232,33 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Changed ähnelt.
+        '''</summary>
+        Friend ReadOnly Property GH_Changed() As String
+            Get
+                Return ResourceManager.GetString("GH_Changed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die New ähnelt.
+        '''</summary>
+        Friend ReadOnly Property GH_New() As String
+            Get
+                Return ResourceManager.GetString("GH_New", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Stashed ähnelt.
+        '''</summary>
+        Friend ReadOnly Property GH_Stashed() As String
+            Get
+                Return ResourceManager.GetString("GH_Stashed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Code export/import ähnelt.
         '''</summary>
         Friend ReadOnly Property menuCodeExportImport() As String
@@ -228,6 +291,15 @@ Namespace My.Resources
         Friend ReadOnly Property menuExportCode() As String
             Get
                 Return ResourceManager.GetString("menuExportCode", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Git ähnelt.
+        '''</summary>
+        Friend ReadOnly Property menuGitExport() As String
+            Get
+                Return ResourceManager.GetString("menuGitExport", resourceCulture)
             End Get
         End Property
         
@@ -309,6 +381,15 @@ Namespace My.Resources
         Friend ReadOnly Property msgContinue() As String
             Get
                 Return ResourceManager.GetString("msgContinue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die No commit message given. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgNoCommitMessageGiven() As String
+            Get
+                Return ResourceManager.GetString("msgNoCommitMessageGiven", resourceCulture)
             End Get
         End Property
     End Module

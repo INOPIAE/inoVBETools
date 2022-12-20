@@ -201,4 +201,31 @@
   <data name="FrmOptionsCreateBackup" xml:space="preserve">
     <value>Create backup file prior to import</value>
   </data>
+  <data name="msgNoCommitMessageGiven" xml:space="preserve">
+    <value>No commit message given.</value>
+  </data>
+  <data name="GH_Stashed" xml:space="preserve">
+    <value>Stashed</value>
+  </data>
+  <data name="GH_Changed" xml:space="preserve">
+    <value>Changed</value>
+  </data>
+  <data name="GH_New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="FrmGitCaption" xml:space="preserve">
+    <value>Git file handling</value>
+  </data>
+  <data name="FrmGitLblCommitMsg" xml:space="preserve">
+    <value>Commit message</value>
+  </data>
+  <data name="FrmButtonAddToStage" xml:space="preserve">
+    <value>Add to stage</value>
+  </data>
+  <data name="FrmButtonRemoveFromStage" xml:space="preserve">
+    <value>Remove from stage</value>
+  </data>
+  <data name="menuGitExport" xml:space="preserve">
+    <value>Git</value>
+  </data>
 </root>

@@ -69,16 +69,16 @@ Partial Class FrmGit
         '
         Me.CmdAdd.Location = New System.Drawing.Point(502, 126)
         Me.CmdAdd.Name = "CmdAdd"
-        Me.CmdAdd.Size = New System.Drawing.Size(75, 23)
+        Me.CmdAdd.Size = New System.Drawing.Size(130, 44)
         Me.CmdAdd.TabIndex = 0
         Me.CmdAdd.Text = "Add"
         Me.CmdAdd.UseVisualStyleBackColor = True
         '
         'CmdRemove
         '
-        Me.CmdRemove.Location = New System.Drawing.Point(502, 155)
+        Me.CmdRemove.Location = New System.Drawing.Point(502, 176)
         Me.CmdRemove.Name = "CmdRemove"
-        Me.CmdRemove.Size = New System.Drawing.Size(75, 23)
+        Me.CmdRemove.Size = New System.Drawing.Size(130, 44)
         Me.CmdRemove.TabIndex = 0
         Me.CmdRemove.Text = "Remove"
         Me.CmdRemove.UseVisualStyleBackColor = True
@@ -87,7 +87,7 @@ Partial Class FrmGit
         '
         Me.CmdCommit.Location = New System.Drawing.Point(502, 347)
         Me.CmdCommit.Name = "CmdCommit"
-        Me.CmdCommit.Size = New System.Drawing.Size(75, 23)
+        Me.CmdCommit.Size = New System.Drawing.Size(130, 44)
         Me.CmdCommit.TabIndex = 0
         Me.CmdCommit.Text = "Commit"
         Me.CmdCommit.UseVisualStyleBackColor = True
@@ -96,7 +96,7 @@ Partial Class FrmGit
         '
         Me.CmdOK.Location = New System.Drawing.Point(656, 347)
         Me.CmdOK.Name = "CmdOK"
-        Me.CmdOK.Size = New System.Drawing.Size(75, 23)
+        Me.CmdOK.Size = New System.Drawing.Size(130, 44)
         Me.CmdOK.TabIndex = 6
         Me.CmdOK.Text = "OK"
         Me.CmdOK.UseVisualStyleBackColor = True

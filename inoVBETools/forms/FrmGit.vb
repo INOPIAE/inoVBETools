@@ -1,7 +1,9 @@
 ﻿Imports System.Drawing
 Imports System.Management.Instrumentation
+Imports System.Net.Http
 Imports System.Windows.Forms
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement
+Imports System.Xml
 
 Public Class FrmGit
     Private ClsGit As New GitHandling
@@ -59,11 +61,17 @@ Public Class FrmGit
     End Sub
 
     Private Sub FrmGit_Load(sender As Object, e As EventArgs) Handles Me.Load
+        Me.Text = inoVBETools.My.Resources.FrmGitCaption
+        Me.lblCommit.Text = inoVBETools.My.Resources.FrmGitLblCommitMsg
+        Me.CmdAdd.Text = inoVBETools.My.Resources.FrmButtonAddToStage
+        Me.CmdRemove.Text = inoVBETools.My.Resources.FrmButtonRemoveFromStage
+        Me.CmdOK.Text = My.Resources.frmButtonOK
+
         PopulateTreeView()
     End Sub
 
     Private Sub CmdAdd_Click(sender As Object, e As EventArgs) Handles CmdAdd.Click
-        Dim np() As TreeNode = TvGit.Nodes.Find("Changed", True)
+        Dim np() As TreeNode = TvGit.Nodes.Find(My.Resources.GH_Changed, True)
         If np.Count = 1 Then
             For Each n As TreeNode In np(0).Nodes
                 If n.Checked = True Then
@@ -71,7 +79,7 @@ Public Class FrmGit
                 End If
             Next
         End If
-        np = TvGit.Nodes.Find("New", True)
+        np = TvGit.Nodes.Find(My.Resources.GH_New, True)
         If np.Count = 1 Then
             For Each n As TreeNode In np(0).Nodes
                 If n.Checked = True Then
@@ -83,7 +91,7 @@ Public Class FrmGit
     End Sub
 
     Private Sub CmdRemove_Click(sender As Object, e As EventArgs) Handles CmdRemove.Click
-        Dim np() As TreeNode = TvGit.Nodes.Find("Stashed", True)
+        Dim np() As TreeNode = TvGit.Nodes.Find(My.Resources.GH_Stashed, True)
         If np.Count = 1 Then
             For Each n As TreeNode In np(0).Nodes
                 If n.Checked = True Then
@@ -96,11 +104,11 @@ Public Class FrmGit
 
     Private Sub CmdCommit_Click(sender As Object, e As EventArgs) Handles CmdCommit.Click
         If Me.TxtCommit.Text.Trim = "" Then
-            MessageBox.Show("No commit message given.")
+            MessageBox.Show(inoVBETools.My.Resources.msgContinue)
             Me.TxtCommit.Select()
             Exit Sub
         End If
-        Dim np() As TreeNode = TvGit.Nodes.Find("Changed", False)
+        Dim np() As TreeNode = TvGit.Nodes.Find(My.Resources.GH_Changed, False)
         If np.Count = 1 Then
             For Each n As TreeNode In np(0).Nodes
                 If n.Checked = True Then
@@ -108,7 +116,7 @@ Public Class FrmGit
                 End If
             Next
         End If
-        np = TvGit.Nodes.Find("New", False)
+        np = TvGit.Nodes.Find(My.Resources.GH_New, False)
         If np.Count = 1 Then
             For Each n As TreeNode In np(0).Nodes
                 If n.Checked = True Then

@@ -47,16 +47,16 @@ Public Class GitHandling
 
 
                 If blnStaged = True And strLine.Length > 1 Then
-                    GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), "Stashed", strLine.Trim.Substring(0, 12).Trim))
+                    GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), My.Resources.GH_Stashed, strLine.Trim.Substring(0, 12).Trim))
                 End If
 
                 If blnChanged = True And strLine.Length > 1 Then
-                    GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), "Changed", strLine.Trim.Substring(0, 12).Trim))
+                    GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), My.Resources.GH_Changed, strLine.Trim.Substring(0, 12).Trim))
                 End If
 
                 If blnNew = True And strLine.Length > 1 Then
                     If strLine.Trim.EndsWith("/") = False Then
-                        GitStatusEntries.Add(New GitStatusEntry(strLine.Trim, "New", "new file:"))
+                        GitStatusEntries.Add(New GitStatusEntry(strLine.Trim, My.Resources.GH_New, "new file:"))
                     End If
                 End If
 
