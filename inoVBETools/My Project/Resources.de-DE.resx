@@ -237,4 +237,7 @@
   <data name="FrmOptionsGitLocation" xml:space="preserve">
     <value>Pfad zur Git.exe</value>
   </data>
+  <data name="msgMissingGit" xml:space="preserve">
+    <value>Es muss der Pfad zur Git.exe in den Einstellungen definiert werden.</value>
+  </data>
 </root>

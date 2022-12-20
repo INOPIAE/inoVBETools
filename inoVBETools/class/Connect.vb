@@ -239,6 +239,10 @@ Public Class Connect
     End Sub
 
     Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
+        If Not System.IO.File.Exists(My.Settings.Git_Exe) Then
+            MessageBox.Show(My.Resources.msgMissingGit)
+            Exit Sub
+        End If
         Dim frm As New FrmGit
         frm.Show()
     End Sub

@@ -412,6 +412,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die You must define the path to git.exe in settings. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgMissingGit() As String
+            Get
+                Return ResourceManager.GetString("msgMissingGit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die No commit message given. ähnelt.
         '''</summary>
         Friend ReadOnly Property msgNoCommitMessageGiven() As String
