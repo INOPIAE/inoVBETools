@@ -187,6 +187,24 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Git settings ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsGitGrp() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsGitGrp", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Location of git.exe ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsGitLocation() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsGitLocation", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Import settings for code modules ähnelt.
         '''</summary>
         Friend ReadOnly Property FrmOptionsImportGrp() As String
@@ -228,6 +246,15 @@ Namespace My.Resources
         Friend ReadOnly Property FrmOptionsNameOfGoToStatement() As String
             Get
                 Return ResourceManager.GetString("FrmOptionsNameOfGoToStatement", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Select path to git.exe ähnelt.
+        '''</summary>
+        Friend ReadOnly Property FrmOptionsTitelGitSearch() As String
+            Get
+                Return ResourceManager.GetString("FrmOptionsTitelGitSearch", resourceCulture)
             End Get
         End Property
         

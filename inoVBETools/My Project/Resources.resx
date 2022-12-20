@@ -228,4 +228,13 @@
   <data name="menuGitExport" xml:space="preserve">
     <value>Git</value>
   </data>
+  <data name="FrmOptionsTitelGitSearch" xml:space="preserve">
+    <value>Select path to git.exe</value>
+  </data>
+  <data name="FrmOptionsGitGrp" xml:space="preserve">
+    <value>Git settings</value>
+  </data>
+  <data name="FrmOptionsGitLocation" xml:space="preserve">
+    <value>Location of git.exe</value>
+  </data>
 </root>

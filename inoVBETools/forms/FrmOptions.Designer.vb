@@ -32,7 +32,12 @@ Partial Class FrmOptions
         Me.GrpImport = New System.Windows.Forms.GroupBox()
         Me.ChbKeepBackup = New System.Windows.Forms.CheckBox()
         Me.ChbBackup = New System.Windows.Forms.CheckBox()
+        Me.GrpGit = New System.Windows.Forms.GroupBox()
+        Me.LblGit = New System.Windows.Forms.Label()
+        Me.TxtGit = New System.Windows.Forms.TextBox()
+        Me.CmdGit = New System.Windows.Forms.Button()
         Me.GrpImport.SuspendLayout()
+        Me.GrpGit.SuspendLayout()
         Me.SuspendLayout()
         '
         'CboLanguage
@@ -101,7 +106,7 @@ Partial Class FrmOptions
         Me.GrpImport.Controls.Add(Me.ChbBackup)
         Me.GrpImport.Location = New System.Drawing.Point(47, 121)
         Me.GrpImport.Name = "GrpImport"
-        Me.GrpImport.Size = New System.Drawing.Size(381, 75)
+        Me.GrpImport.Size = New System.Drawing.Size(703, 75)
         Me.GrpImport.TabIndex = 5
         Me.GrpImport.TabStop = False
         Me.GrpImport.Text = "ImportCode"
@@ -126,11 +131,49 @@ Partial Class FrmOptions
         Me.ChbBackup.Text = "Backup"
         Me.ChbBackup.UseVisualStyleBackColor = True
         '
+        'GrpGit
+        '
+        Me.GrpGit.Controls.Add(Me.CmdGit)
+        Me.GrpGit.Controls.Add(Me.TxtGit)
+        Me.GrpGit.Controls.Add(Me.LblGit)
+        Me.GrpGit.Location = New System.Drawing.Point(47, 202)
+        Me.GrpGit.Name = "GrpGit"
+        Me.GrpGit.Size = New System.Drawing.Size(703, 85)
+        Me.GrpGit.TabIndex = 6
+        Me.GrpGit.TabStop = False
+        Me.GrpGit.Text = "Git"
+        '
+        'LblGit
+        '
+        Me.LblGit.AutoSize = True
+        Me.LblGit.Location = New System.Drawing.Point(13, 26)
+        Me.LblGit.Name = "LblGit"
+        Me.LblGit.Size = New System.Drawing.Size(94, 13)
+        Me.LblGit.TabIndex = 0
+        Me.LblGit.Text = "Location of git exe"
+        '
+        'TxtGit
+        '
+        Me.TxtGit.Location = New System.Drawing.Point(137, 21)
+        Me.TxtGit.Name = "TxtGit"
+        Me.TxtGit.Size = New System.Drawing.Size(489, 20)
+        Me.TxtGit.TabIndex = 1
+        '
+        'CmdGit
+        '
+        Me.CmdGit.Location = New System.Drawing.Point(632, 21)
+        Me.CmdGit.Name = "CmdGit"
+        Me.CmdGit.Size = New System.Drawing.Size(34, 19)
+        Me.CmdGit.TabIndex = 2
+        Me.CmdGit.Text = "..."
+        Me.CmdGit.UseVisualStyleBackColor = True
+        '
         'FrmOptions
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.GrpGit)
         Me.Controls.Add(Me.GrpImport)
         Me.Controls.Add(Me.TxtErrHandling)
         Me.Controls.Add(Me.LblLangInfo)
@@ -143,6 +186,8 @@ Partial Class FrmOptions
         Me.Text = "FrmOptions"
         Me.GrpImport.ResumeLayout(False)
         Me.GrpImport.PerformLayout()
+        Me.GrpGit.ResumeLayout(False)
+        Me.GrpGit.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -158,4 +203,8 @@ Partial Class FrmOptions
     Friend WithEvents GrpImport As Windows.Forms.GroupBox
     Friend WithEvents ChbKeepBackup As Windows.Forms.CheckBox
     Friend WithEvents ChbBackup As Windows.Forms.CheckBox
+    Friend WithEvents GrpGit As Windows.Forms.GroupBox
+    Friend WithEvents CmdGit As Windows.Forms.Button
+    Friend WithEvents TxtGit As Windows.Forms.TextBox
+    Friend WithEvents LblGit As Windows.Forms.Label
 End Class

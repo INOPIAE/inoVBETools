@@ -1,5 +1,6 @@
 ﻿Imports System.Configuration
 Imports System.Globalization
+Imports System.IO
 Imports System.Net.Configuration
 Imports System.Security
 Imports System.Windows.Forms
@@ -13,6 +14,7 @@ Public Class FrmOptions
         My.Settings.GotoError = Me.TxtErrHandling.Text
         My.Settings.MakeBackup = Me.ChbBackup.Checked
         My.Settings.KeepBackup = Me.ChbKeepBackup.Checked
+        My.Settings.Git_Exe = Me.TxtGit.Text
         My.Settings.Save()
         My.Application.ChangeUICulture(My.Settings.Language)
         Me.Close()
@@ -41,6 +43,9 @@ Public Class FrmOptions
 
         Me.Text = inoVBETools.My.Resources.FrmOptionsCaption
 
+        Me.GrpGit.Text = My.Resources.FrmOptionsGitGrp
+        Me.LblGit.Text = My.Resources.FrmOptionsGitLocation
+
         Me.LblLanguage.Text = inoVBETools.My.Resources.frmOptionsLanguage
         Me.LblErrHandling.Text = inoVBETools.My.Resources.FrmOptionsNameOfGoToStatement
         Me.CmdCancel.Text = inoVBETools.My.Resources.frmButtonCancel
@@ -48,5 +53,21 @@ Public Class FrmOptions
         Me.LblLangInfo.Text = inoVBETools.My.Resources.FrmOptionsLangInfo
         Me.ChbBackup.Checked = My.Settings.MakeBackup
         Me.ChbKeepBackup.Checked = My.Settings.KeepBackup
+        Me.TxtGit.Text = My.Settings.Git_Exe
+    End Sub
+
+    Private Sub CmdGit_Click(sender As Object, e As EventArgs) Handles CmdGit.Click
+        Dim ofd As New OpenFileDialog
+        With ofd
+            .Multiselect = False
+            .Title = My.Resources.FrmOptionsTitelGitSearch
+            If System.IO.File.Exists(Me.TxtGit.Text) Then
+                .InitialDirectory = Path.GetDirectoryName(Me.TxtGit.Text)
+                .FileName = Path.GetFileName(Me.TxtGit.Text)
+            End If
+            If .ShowDialog = DialogResult.OK Then
+                Me.TxtGit.Text = .FileName
+            End If
+        End With
     End Sub
 End Class
