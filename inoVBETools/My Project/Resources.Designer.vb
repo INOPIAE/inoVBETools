@@ -106,7 +106,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Sucht eine lokalisierte Zeichenfolge, die Select folder to import from. Just select the folder and keep the filename &apos;{0} ähnelt.
+        '''  Sucht eine lokalisierte Zeichenfolge, die Select folder to import from. Just select the folder and keep the filename &apos;{0}. ähnelt.
         '''</summary>
         Friend ReadOnly Property ConnectImportTitle() As String
             Get
@@ -435,6 +435,15 @@ Namespace My.Resources
         Friend ReadOnly Property msgContinue() As String
             Get
                 Return ResourceManager.GetString("msgContinue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die The file &apos;{0}&apos; seems to be not a current code modules.{1}Shall it be deleted? ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgDeleteFileExport() As String
+            Get
+                Return ResourceManager.GetString("msgDeleteFileExport", resourceCulture)
             End Get
         End Property
         

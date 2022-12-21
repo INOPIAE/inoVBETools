@@ -49,7 +49,8 @@ Public Class CodeModuleHandling
     End Sub
 
     Public Sub ExportModules(vbeProject As VBProject, strPath As String, strDate As String)
-
+        Dim LFiles As New List(Of String)
+        Dim strFilename As String
         For Each vbmodule As VBComponent In vbeProject.VBComponents
             Dim strExtension As String = ""
             Select Case vbmodule.Type
@@ -62,12 +63,34 @@ Public Class CodeModuleHandling
                 Case vbext_ComponentType.vbext_ct_MSForm
                     strExtension = ".frm"
             End Select
-            If strExtension <> "" Then
-                vbmodule.Export(strPath & vbmodule.Name & strExtension)
-                My.Computer.FileSystem.RenameFile(strPath & vbmodule.Name & strExtension, vbmodule.Name & "_" & strDate & strExtension)
-            End If
 
+            If strExtension <> "" Then
+                strFilename = strPath & vbmodule.Name & strExtension
+                vbmodule.Export(strFilename)
+                LFiles.Add(strFilename)
+                If strDate <> "" Then
+                    strDate = "_" & strDate
+                    My.Computer.FileSystem.RenameFile(strFilename, vbmodule.Name & strDate & strExtension)
+                End If
+            End If
         Next
+        If strDate = "" Then
+            Dim di As New IO.DirectoryInfo(strPath)
+            Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
+            Dim fi As IO.FileInfo
+
+            For Each fi In aryFi
+                Select Case fi.Extension
+                    Case ".cls", ".frm", ".bas", ".dcls"
+                        If Not LFiles.Contains(fi.FullName) Then
+                            If MessageBox.Show(String.Format(inoVBETools.My.Resources.msgDeleteFileExport, fi.Name, vbCrLf), "inoVBETools", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+                                fi.Delete()
+                            End If
+                        End If
+                End Select
+            Next
+        End If
+
     End Sub
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)

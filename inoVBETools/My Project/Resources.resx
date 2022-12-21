@@ -247,6 +247,9 @@
     <value>Select folder to export to. Just select the folder and keep the filename '{0}'.</value>
   </data>
   <data name="ConnectImportTitle" xml:space="preserve">
-    <value>Select folder to import from. Just select the folder and keep the filename '{0}</value>
+    <value>Select folder to import from. Just select the folder and keep the filename '{0}.</value>
+  </data>
+  <data name="msgDeleteFileExport" xml:space="preserve">
+    <value>The file '{0}' seems to be not a current code modules.{1}Shall it be deleted?</value>
   </data>
 </root>

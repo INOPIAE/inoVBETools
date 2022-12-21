@@ -249,4 +249,7 @@
   <data name="ConnectImportTitle" xml:space="preserve">
     <value>Ordner für den Import auswählen. Nur den Ordner wählen und den Dateinamen '{0}' beibehalten.</value>
   </data>
+  <data name="msgDeleteFileExport" xml:space="preserve">
+    <value>Die Datei '{0}' scheint kein aktuelles Code-Modul zu sein.{1}Soll sie gelöscht werden?</value>
+  </data>
 </root>
