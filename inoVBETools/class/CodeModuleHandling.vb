@@ -97,7 +97,7 @@ Public Class CodeModuleHandling
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
         If My.Settings.MakeBackup Then MakeBackup(vbeProject, strPath)
         Dim LFiles As New List(Of String)
-        If MessageBox.Show(inoVBETools.My.Resources.CMHOverwrite & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
+        If MessageBox.Show(String.Format(inoVBETools.My.Resources.CMHOverwrite, vbeProject.Name) & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
             Dim fi As IO.FileInfo

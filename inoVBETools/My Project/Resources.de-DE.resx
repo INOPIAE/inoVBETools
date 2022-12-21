@@ -181,7 +181,7 @@
     <value>Code importieren</value>
   </data>
   <data name="CMHOverwrite" xml:space="preserve">
-    <value>Alle bestehende Codemodule werden überschrieben.</value>
+    <value>Alle bestehende Codemodule in '{0}' werden überschrieben.</value>
   </data>
   <data name="msgContinue" xml:space="preserve">
     <value>Wollen Sie fortfahren?</value>
