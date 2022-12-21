@@ -19,7 +19,8 @@ Public Class CodeModuleHandling
             Else
                 Exit Sub
             End If
-
+        ElseIf ModuleExists(ModuleName, vbeProject) Then
+            vbeProject.VBComponents.Remove(GetComponentByName(ModuleName, vbeProject))
         End If
         vbeProject.VBComponents.Import(ModuleFullPath)
     End Sub
@@ -95,7 +96,7 @@ Public Class CodeModuleHandling
 
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
         If My.Settings.MakeBackup Then MakeBackup(vbeProject, strPath)
-
+        Dim LFiles As New List(Of String)
         If MessageBox.Show(inoVBETools.My.Resources.CMHOverwrite & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
@@ -105,12 +106,23 @@ Public Class CodeModuleHandling
                 Select Case fi.Extension
                     Case ".cls", ".frm", ".bas"
                         ImportCodeModule(vbeProject, fi.FullName)
+                        LFiles.Add(fi.Name.Replace(fi.Extension, ""))
                     Case ".dcls"
                         ImportCodeModuleSpecial(vbeProject, fi.FullName)
+                        LFiles.Add(fi.Name.Replace(fi.Extension, ""))
                 End Select
             Next
-        End If
 
+            For Each vbmodule As VBComponent In vbeProject.VBComponents
+                If vbmodule.Type <> vbext_ComponentType.vbext_ct_Document Then
+                    If Not LFiles.Contains(vbmodule.Name) Then
+                        If MessageBox.Show(String.Format(inoVBETools.My.Resources.msgDeleteModuleImport, vbmodule.Name, vbCrLf), "inoVBETools", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+                            vbeProject.VBComponents.Remove(vbmodule)
+                        End If
+                    End If
+                End If
+            Next
+        End If
     End Sub
     Function ComponentTypeToString(ComponentType As vbext_ComponentType) As String
         'ComponentTypeToString from http://www.cpearson.com/excel/vbe.aspx
@@ -146,21 +158,23 @@ Public Class CodeModuleHandling
 
 
         Dim CodeComponent As VBComponent = GetComponentByName(ModuleName, vbeProject)
-        CodeComponent.CodeModule.DeleteLines(1, CodeComponent.CodeModule.CountOfLines)
+        If IsNothing(CodeComponent) Then
+            MessageBox.Show(String.Format(inoVBETools.My.Resources.CHM_ProblemImport, ModuleName))
+        Else
+            CodeComponent.CodeModule.DeleteLines(1, CodeComponent.CodeModule.CountOfLines)
 
+            Dim strCode As String = ""
+            Do Until reader.EndOfStream
+                Dim codeline As String = reader.ReadLine
+                If intLines > 9 Then
+                    strCode &= codeline & vbCrLf
+                End If
+                intLines += 1
+            Loop
+            reader.Close()
 
-        Dim strCode As String = ""
-        Do Until reader.EndOfStream
-            Dim codeline As String = reader.ReadLine
-            If intLines > 9 Then
-                strCode &= codeline & vbCrLf
-            End If
-            intLines += 1
-        Loop
-        reader.Close()
-
-        CodeComponent.CodeModule.InsertLines(1, strCode)
-
+            CodeComponent.CodeModule.InsertLines(1, strCode)
+        End If
     End Sub
 
     Public Function getModuleNameFromPath(strPath As String) As String

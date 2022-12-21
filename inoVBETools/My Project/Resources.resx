@@ -252,4 +252,10 @@
   <data name="msgDeleteFileExport" xml:space="preserve">
     <value>The file '{0}' seems to be not a current code modules.{1}Shall it be deleted?</value>
   </data>
+  <data name="msgDeleteModuleImport" xml:space="preserve">
+    <value>The module '{0}' seems to not be not part of the stored code modules.{1}Shall it be deleted?</value>
+  </data>
+  <data name="CHM_ProblemImport" xml:space="preserve">
+    <value>There is a problem with the import of '{0}'.</value>
+  </data>
 </root>

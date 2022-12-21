@@ -61,6 +61,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die There is a problem with the import of &apos;{0}&apos;. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property CHM_ProblemImport() As String
+            Get
+                Return ResourceManager.GetString("CHM_ProblemImport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Import Modules ähnelt.
         '''</summary>
         Friend ReadOnly Property CHMTitleImport() As String
@@ -444,6 +453,15 @@ Namespace My.Resources
         Friend ReadOnly Property msgDeleteFileExport() As String
             Get
                 Return ResourceManager.GetString("msgDeleteFileExport", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die The module &apos;{0}&apos; seems to not be not part of the stored code modules.{1}Shall it be deleted? ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgDeleteModuleImport() As String
+            Get
+                Return ResourceManager.GetString("msgDeleteModuleImport", resourceCulture)
             End Get
         End Property
         
