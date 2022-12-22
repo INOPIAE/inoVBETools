@@ -204,9 +204,13 @@ Public Class CodeModuleHandling
     End Sub
 
     Public Function CheckProjectHasName(vbeProject As VBProject) As Boolean
-        'TODO Define deault project namne of Office Applications
+        ' Default project namne of Office Applications
+        ' VBAProject - Excel, MS Project, Powerpoint
+        ' Project - Word
+        ' Access has no default project name
+        ' TODO Check Visio, Outlook
         Select Case vbeProject.Name
-            Case "VBAProject", "Project" ' Excel, Word
+            Case "VBAProject", "Project"
                 MessageBox.Show(inoVBETools.My.Resources.msgProjectHasNoSpecificName & vbCrLf _
                                 & inoVBETools.My.Resources.msgUseThisFunction & vbCrLf & inoVBETools.My.Resources.msgActionCanceled)
                 Return False
