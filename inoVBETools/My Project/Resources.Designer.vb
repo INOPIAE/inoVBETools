@@ -97,7 +97,7 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Sucht eine lokalisierte Zeichenfolge, die All existing code modules will be overwritten. ähnelt.
+        '''  Sucht eine lokalisierte Zeichenfolge, die All existing code modules in &apos;{0}&apos; will be overwritten. ähnelt.
         '''</summary>
         Friend ReadOnly Property CMHOverwrite() As String
             Get
@@ -439,6 +439,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die This action is canceled. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgActionCanceled() As String
+            Get
+                Return ResourceManager.GetString("msgActionCanceled", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Do you want to continue? ähnelt.
         '''</summary>
         Friend ReadOnly Property msgContinue() As String
@@ -480,6 +489,24 @@ Namespace My.Resources
         Friend ReadOnly Property msgNoCommitMessageGiven() As String
             Get
                 Return ResourceManager.GetString("msgNoCommitMessageGiven", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die The current VBA Project has no specific name. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgProjectHasNoSpecificName() As String
+            Get
+                Return ResourceManager.GetString("msgProjectHasNoSpecificName", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die To use this function a name is required. ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgUseThisFunction() As String
+            Get
+                Return ResourceManager.GetString("msgUseThisFunction", resourceCulture)
             End Get
         End Property
     End Module

@@ -202,4 +202,15 @@ Public Class CodeModuleHandling
 
         ExportModules(vbeProject, strPath & "\", strDate)
     End Sub
+
+    Public Function CheckProjectHasName(vbeProject As VBProject) As Boolean
+        'TODO Define deault project namne of Office Applications
+        Select Case vbeProject.Name
+            Case "VBAProject", "Project" ' Excel, Word
+                MessageBox.Show(inoVBETools.My.Resources.msgProjectHasNoSpecificName & vbCrLf _
+                                & inoVBETools.My.Resources.msgUseThisFunction & vbCrLf & inoVBETools.My.Resources.msgActionCanceled)
+                Return False
+        End Select
+        Return True
+    End Function
 End Class

@@ -1,8 +1,23 @@
-﻿Imports Microsoft
+﻿Imports System.IO
+Imports System.Runtime.InteropServices
+Imports Microsoft
 Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Vbe.Interop
 
 Public Class VBEHandling
+
+    Public Structure ProjectEntry
+        Public ProjectName As String
+        Public CodeDirectrory As String
+        Public Type As String
+        Public Sub New(PN As String, CD As String)
+            ProjectName = PN
+            CodeDirectrory = CD
+        End Sub
+    End Structure
+
+    Public ProjectEntries As New List(Of ProjectEntry)
+
     Public Function GetCurrentProcedureCode(_VBE As VBE, ByRef StartPos As Long, ByRef CountLines As Long, Optional blnIncHeader As Boolean = False) As String
         Dim startline As Long
         Dim startcol As Long
@@ -92,4 +107,62 @@ Public Class VBEHandling
 
         Return String.Empty
     End Function
+
+    Public Sub ProjectAdd(PN As String, CD As String)
+        For Each p As ProjectEntry In ProjectEntries
+            If p.ProjectName = PN Then
+                ProjectEntries.Remove(p)
+                Exit For
+            End If
+        Next
+        ProjectEntries.Add(New ProjectEntry(PN, CD))
+    End Sub
+
+    Public Function ProjectDirectoryByName(PN As String) As String
+        For Each p As ProjectEntry In ProjectEntries
+            If p.ProjectName = PN Then
+                Return p.CodeDirectrory
+            End If
+        Next
+        Return Nothing
+    End Function
+
+    Public Sub WriteProjectEntries(Optional location As String = "")
+        If location = "" Then
+            location = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools", "projectdirectories.txt")
+            If Not Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools")) Then
+                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools"))
+            End If
+        End If
+
+        Using sw As New StreamWriter(location)
+            For Each p As ProjectEntry In ProjectEntries
+                sw.WriteLine(p.ProjectName & "; " & p.CodeDirectrory)
+            Next
+        End Using
+
+    End Sub
+
+    Public Sub ReadProjectEntries(Optional location As String = "")
+        If location = "" Then
+            location = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools", "projectdirectories.txt")
+            If Not Directory.Exists(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools")) Then
+                Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "inoVBETools"))
+            End If
+        End If
+
+        Dim line As String = ""
+        ProjectEntries.Clear()
+
+        Using sr As New StreamReader(location)
+            line = sr.ReadLine
+            Do
+                Dim linesp() As String = line.Split(";")
+                ProjectAdd(linesp(0).Trim, linesp(1).Trim)
+                line = sr.ReadLine()
+
+            Loop Until line Is Nothing
+        End Using
+
+    End Sub
 End Class

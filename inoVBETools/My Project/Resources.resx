@@ -258,4 +258,13 @@
   <data name="CHM_ProblemImport" xml:space="preserve">
     <value>There is a problem with the import of '{0}'.</value>
   </data>
+  <data name="msgProjectHasNoSpecificName" xml:space="preserve">
+    <value>The current VBA Project has no specific name.</value>
+  </data>
+  <data name="msgUseThisFunction" xml:space="preserve">
+    <value>To use this function a name is required.</value>
+  </data>
+  <data name="msgActionCanceled" xml:space="preserve">
+    <value>This action is canceled.</value>
+  </data>
 </root>

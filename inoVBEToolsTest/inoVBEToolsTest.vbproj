@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <RootNamespace>inoVBEToolsTest</RootNamespace>
@@ -22,6 +22,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\inoVBETools\inoVBETools.vbproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="TestData\" />
   </ItemGroup>
 
 </Project>
