@@ -133,10 +133,6 @@ Public Class Connect
         End With
     End Sub
 
-    Private Sub _MyLineNummeringButton1_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton1.Click
-        ClsLineNumbering.AddLineNumbersToComponent(_VBE.ActiveCodePane.CodeModule)
-    End Sub
-
     Private Sub _MyErrorHandling1_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyErrorHandling1.Click
         Dim startline As Long
         Dim startcol As Long
@@ -198,26 +194,12 @@ Public Class Connect
         End If
     End Sub
 
+    Private Sub _MyLineNummeringButton1_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton1.Click
+        ClsLineNumbering.AddLineNumbersToComponent(_VBE.ActiveCodePane.CodeModule)
+    End Sub
+
     Private Sub _MyLineNummeringButton2_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton2.Click
         ClsLineNumbering.AddLineNumbersToComponent(_VBE.ActiveCodePane.CodeModule, True)
-    End Sub
-
-    Private Sub _MySettings_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MySettings.Click
-        Dim frm As New FrmOptions
-        frm.Show()
-    End Sub
-
-    Private Sub SetLanguage()
-        My.Application.ChangeUICulture(My.Settings.Language)
-    End Sub
-
-    Private Sub _MyIndentation_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyIndentation.Click
-        Dim StartPos As Long = 0
-        Dim Countlines As Long = 0
-        Dim strCode As String = ClsIndent.IndentCode(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines))
-
-        _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
-        _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
 
     Private Sub _MyLineNummeringButton3_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyLineNummeringButton3.Click
@@ -238,14 +220,18 @@ Public Class Connect
         _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
 
-    Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
-        If Not System.IO.File.Exists(My.Settings.Git_Exe) Then
-            MessageBox.Show(My.Resources.msgMissingGit)
-            Exit Sub
-        End If
-
-        Dim frm As New FrmGit
+    Private Sub _MySettings_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MySettings.Click
+        Dim frm As New FrmOptions
         frm.Show()
+    End Sub
+
+    Private Sub _MyIndentation_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyIndentation.Click
+        Dim StartPos As Long = 0
+        Dim Countlines As Long = 0
+        Dim strCode As String = ClsIndent.IndentCode(ClsVBEHandling.GetCurrentProcedureCode(_VBE, StartPos, Countlines))
+
+        _VBE.ActiveCodePane.CodeModule.DeleteLines(StartPos, Countlines)
+        _VBE.ActiveCodePane.CodeModule.InsertLines(StartPos, strCode)
     End Sub
 
     Private Sub _MyExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyExport.Click
@@ -257,6 +243,31 @@ Public Class Connect
         If cd <> "" Then
             ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, cd & "\")
         End If
+    End Sub
+
+    Private Sub _MyImport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyImport.Click
+        If ClsCodeModuleHandling.CheckProjectHasName(_VBE.ActiveVBProject) = False Then
+            Exit Sub
+        End If
+
+        Dim cd As String = SelectCodeDirectory()
+        If cd <> "" Then
+            ClsCodeModuleHandling.ImportModules(_VBE.ActiveVBProject, cd & "\")
+        End If
+    End Sub
+
+    Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
+        If Not System.IO.File.Exists(My.Settings.Git_Exe) Then
+            MessageBox.Show(My.Resources.msgMissingGit)
+            Exit Sub
+        End If
+
+        Dim frm As New FrmGit
+        frm.Show()
+    End Sub
+
+    Private Sub SetLanguage()
+        My.Application.ChangeUICulture(My.Settings.Language)
     End Sub
 
     Private Function SelectCodeDirectory() As String
@@ -283,15 +294,4 @@ Public Class Connect
         End With
         Return ""
     End Function
-
-    Private Sub _MyImport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyImport.Click
-        If ClsCodeModuleHandling.CheckProjectHasName(_VBE.ActiveVBProject) = False Then
-            Exit Sub
-        End If
-
-        Dim cd As String = SelectCodeDirectory()
-        If cd <> "" Then
-            ClsCodeModuleHandling.ImportModules(_VBE.ActiveVBProject, cd & "\")
-        End If
-    End Sub
 End Class
