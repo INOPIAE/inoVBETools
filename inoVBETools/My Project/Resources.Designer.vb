@@ -214,6 +214,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Colour of git file area ähnelt.
+        '''</summary>
+        Friend ReadOnly Property frmOptionsColourGit() As String
+            Get
+                Return ResourceManager.GetString("frmOptionsColourGit", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Create backup file prior to import ähnelt.
         '''</summary>
         Friend ReadOnly Property FrmOptionsCreateBackup() As String

@@ -267,4 +267,7 @@
   <data name="msgActionCanceled" xml:space="preserve">
     <value>This action is canceled.</value>
   </data>
+  <data name="frmOptionsColourGit" xml:space="preserve">
+    <value>Colour of git file area</value>
+  </data>
 </root>

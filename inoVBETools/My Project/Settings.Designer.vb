@@ -137,6 +137,42 @@ Namespace My
                 Me("WorkingDirectory") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("LightSkyBlue")>  _
+        Public Property GitColorNew() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("GitColorNew"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("GitColorNew") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("LightSalmon")>  _
+        Public Property GitColorChanged() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("GitColorChanged"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("GitColorChanged") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("LightGreen")>  _
+        Public Property GitColorStashed() As Global.System.Drawing.Color
+            Get
+                Return CType(Me("GitColorStashed"),Global.System.Drawing.Color)
+            End Get
+            Set
+                Me("GitColorStashed") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

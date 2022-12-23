@@ -31,11 +31,11 @@ Public Class FrmGit
             NewNode.Checked = True
             Select Case g.Area
                 Case My.Resources.GH_New
-                    NewNode.ForeColor = Color.LightSkyBlue
+                    NewNode.ForeColor = My.Settings.GitColorNew
                 Case My.Resources.GH_Changed
-                    NewNode.ForeColor = Color.LightSalmon
+                    NewNode.ForeColor = My.Settings.GitColorChanged
                 Case My.Resources.GH_Stashed
-                    NewNode.ForeColor = Color.LightGreen
+                    NewNode.ForeColor = My.Settings.GitColorStashed
             End Select
         Next
 
