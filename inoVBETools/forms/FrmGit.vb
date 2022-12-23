@@ -30,11 +30,11 @@ Public Class FrmGit
             Dim NewNode As TreeNode = nArea.Nodes.Add(g.Type & g.FileName)
             NewNode.Checked = True
             Select Case g.Area
-                Case "New"
+                Case My.Resources.GH_New
                     NewNode.ForeColor = Color.LightSkyBlue
-                Case "Changed"
+                Case My.Resources.GH_Changed
                     NewNode.ForeColor = Color.LightSalmon
-                Case "Stashed"
+                Case My.Resources.GH_Stashed
                     NewNode.ForeColor = Color.LightGreen
             End Select
         Next
