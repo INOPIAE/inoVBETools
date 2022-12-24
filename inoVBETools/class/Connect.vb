@@ -40,6 +40,15 @@ Public Class Connect
         Try
             _VBE = DirectCast(Application, VBE)
             _AddIn = DirectCast(AddInInst, AddIn)
+            Dim refVBE
+            For Each refVBE In _VBE.ActiveVBProject.References
+                With refVBE
+                    If .BuiltIn = True And .Name <> "VBA" Then
+                        MsgBox("This Add In is hosted by " & .Name)
+                    End If
+                End With
+            Next refVBE
+            refVBE = Nothing
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
         End Try
