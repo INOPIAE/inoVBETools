@@ -40,6 +40,8 @@ Public Class FrmGit
         Next
 
         TvGit.ExpandAll()
+
+        LblCurrentBranch.Text = String.Format(My.Resources.frmGitCurrentBranch, ClsGit.CurrentBranch)
     End Sub
 
     Private Sub TvGit_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TvGit.AfterCheck

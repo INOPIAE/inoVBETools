@@ -270,4 +270,7 @@
   <data name="frmOptionsColourGit" xml:space="preserve">
     <value>Colour of git file area</value>
   </data>
+  <data name="frmGitCurrentBranch" xml:space="preserve">
+    <value>Current branch: {0}</value>
+  </data>
 </root>

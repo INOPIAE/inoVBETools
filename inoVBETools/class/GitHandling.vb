@@ -16,6 +16,8 @@ Public Class GitHandling
 
     Public GitStatusEntries As New List(Of GitStatusEntry)
     Public WorkingDirectory As String = My.Settings.WorkingDirectory
+    Public CurrentBranch As String
+
     Public Sub AppendToGitIgnoreFile(strPath As String, strIgnore As String)
         My.Computer.FileSystem.WriteAllText(Path.Combine(strPath, ".gitignore"), strIgnore, True)
     End Sub
@@ -39,7 +41,7 @@ Public Class GitHandling
         Using oStreamReader As System.IO.StreamReader = pr.StandardOutput
             Do While oStreamReader.Peek() >= 0
                 Dim strLine As String = oStreamReader.ReadLine()
-
+                If strLine.StartsWith("On branch") Then CurrentBranch = strLine.Substring(10)
                 If strLine.Trim.StartsWith("no changes added to commit") Then blnNew = False
                 If strLine.Trim.StartsWith("Untracked files:") Then blnChanged = False
                 If strLine.Trim.StartsWith("Untracked files:") Then blnStaged = False

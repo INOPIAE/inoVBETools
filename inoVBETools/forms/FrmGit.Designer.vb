@@ -30,6 +30,7 @@ Partial Class FrmGit
         Me.CmdRemove = New System.Windows.Forms.Button()
         Me.CmdCommit = New System.Windows.Forms.Button()
         Me.CmdOK = New System.Windows.Forms.Button()
+        Me.LblCurrentBranch = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'cmdTest
@@ -38,7 +39,7 @@ Partial Class FrmGit
         Me.cmdTest.Name = "cmdTest"
         Me.cmdTest.Size = New System.Drawing.Size(75, 23)
         Me.cmdTest.TabIndex = 0
-        Me.cmdTest.Text = "Button1"
+        Me.cmdTest.Text = "Test"
         Me.cmdTest.UseVisualStyleBackColor = True
         '
         'TxtCommit
@@ -101,11 +102,22 @@ Partial Class FrmGit
         Me.CmdOK.Text = "OK"
         Me.CmdOK.UseVisualStyleBackColor = True
         '
+        'LblCurrentBranch
+        '
+        Me.LblCurrentBranch.AutoSize = True
+        Me.LblCurrentBranch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LblCurrentBranch.Location = New System.Drawing.Point(32, 18)
+        Me.LblCurrentBranch.Name = "LblCurrentBranch"
+        Me.LblCurrentBranch.Size = New System.Drawing.Size(88, 13)
+        Me.LblCurrentBranch.TabIndex = 7
+        Me.LblCurrentBranch.Text = "CurrentBranch"
+        '
         'FrmGit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.LblCurrentBranch)
         Me.Controls.Add(Me.CmdOK)
         Me.Controls.Add(Me.TvGit)
         Me.Controls.Add(Me.lblCommit)
@@ -129,4 +141,5 @@ Partial Class FrmGit
     Friend WithEvents CmdRemove As Windows.Forms.Button
     Friend WithEvents CmdCommit As Windows.Forms.Button
     Friend WithEvents CmdOK As Windows.Forms.Button
+    Friend WithEvents LblCurrentBranch As Windows.Forms.Label
 End Class

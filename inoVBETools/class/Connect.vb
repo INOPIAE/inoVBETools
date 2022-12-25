@@ -36,19 +36,22 @@ Public Class Connect
     Private ClsLineNumbering As New LineNumbering
     Private ClsCodeModuleHandling As New CodeModuleHandling
 
+    Public HostApplicationName As String
+
     Public Sub OnConnection(Application As Object, ConnectMode As ext_ConnectMode, AddInInst As Object, ByRef custom As Array) Implements IDTExtensibility2.OnConnection
         Try
             _VBE = DirectCast(Application, VBE)
             _AddIn = DirectCast(AddInInst, AddIn)
-            Dim refVBE
-            For Each refVBE In _VBE.ActiveVBProject.References
+
+            For Each refVBE As Reference In _VBE.ActiveVBProject.References
                 With refVBE
                     If .BuiltIn = True And .Name <> "VBA" Then
-                        MsgBox("This Add In is hosted by " & .Name)
+                        HostApplicationName = .Name
+                        Exit For
                     End If
                 End With
             Next refVBE
-            refVBE = Nothing
+
         Catch ex As Exception
             MessageBox.Show(ex.ToString())
         End Try

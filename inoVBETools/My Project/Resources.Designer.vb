@@ -196,6 +196,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Current branch: {0} ähnelt.
+        '''</summary>
+        Friend ReadOnly Property frmGitCurrentBranch() As String
+            Get
+                Return ResourceManager.GetString("frmGitCurrentBranch", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Commit message ähnelt.
         '''</summary>
         Friend ReadOnly Property FrmGitLblCommitMsg() As String
