@@ -254,6 +254,8 @@ Public Class Connect
         Dim cd As String = SelectCodeDirectory()
         If cd <> "" Then
             ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, cd & "\")
+            My.Settings.WorkingDirectory = cd
+            My.Settings.Save()
         End If
     End Sub
 
