@@ -192,11 +192,11 @@ Public Class CodeModuleHandling
 
         If Not Directory.Exists(strPath) Then
             Directory.CreateDirectory(strPath)
-            ClsGit.AppendToGitIgnoreFile(strPath, ".frm")
-            ClsGit.AppendToGitIgnoreFile(strPath, ".frx")
-            ClsGit.AppendToGitIgnoreFile(strPath, ".cls")
-            ClsGit.AppendToGitIgnoreFile(strPath, ".bas")
-            ClsGit.AppendToGitIgnoreFile(strPath, ".dcls")
+            ClsGit.AppendToGitIgnoreFile(strPath, ".frm" & vbCrLf)
+            ClsGit.AppendToGitIgnoreFile(strPath, ".frx" & vbCrLf)
+            ClsGit.AppendToGitIgnoreFile(strPath, ".cls" & vbCrLf)
+            ClsGit.AppendToGitIgnoreFile(strPath, ".bas" & vbCrLf)
+            ClsGit.AppendToGitIgnoreFile(strPath, ".dcls" & vbCrLf)
         End If
         Dim strDate As String = Format(Now, "yyyyMMdd_hhmm")
 
