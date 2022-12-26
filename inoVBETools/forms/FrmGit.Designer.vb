@@ -31,6 +31,7 @@ Partial Class FrmGit
         Me.CmdCommit = New System.Windows.Forms.Button()
         Me.CmdOK = New System.Windows.Forms.Button()
         Me.LblCurrentBranch = New System.Windows.Forms.Label()
+        Me.CkbAmend = New System.Windows.Forms.CheckBox()
         Me.SuspendLayout()
         '
         'cmdTest
@@ -61,14 +62,14 @@ Partial Class FrmGit
         '
         'TvGit
         '
-        Me.TvGit.Location = New System.Drawing.Point(35, 126)
+        Me.TvGit.Location = New System.Drawing.Point(35, 156)
         Me.TvGit.Name = "TvGit"
         Me.TvGit.Size = New System.Drawing.Size(400, 244)
         Me.TvGit.TabIndex = 5
         '
         'CmdAdd
         '
-        Me.CmdAdd.Location = New System.Drawing.Point(502, 126)
+        Me.CmdAdd.Location = New System.Drawing.Point(504, 156)
         Me.CmdAdd.Name = "CmdAdd"
         Me.CmdAdd.Size = New System.Drawing.Size(130, 44)
         Me.CmdAdd.TabIndex = 0
@@ -77,7 +78,7 @@ Partial Class FrmGit
         '
         'CmdRemove
         '
-        Me.CmdRemove.Location = New System.Drawing.Point(502, 176)
+        Me.CmdRemove.Location = New System.Drawing.Point(504, 206)
         Me.CmdRemove.Name = "CmdRemove"
         Me.CmdRemove.Size = New System.Drawing.Size(130, 44)
         Me.CmdRemove.TabIndex = 0
@@ -86,7 +87,7 @@ Partial Class FrmGit
         '
         'CmdCommit
         '
-        Me.CmdCommit.Location = New System.Drawing.Point(502, 347)
+        Me.CmdCommit.Location = New System.Drawing.Point(504, 377)
         Me.CmdCommit.Name = "CmdCommit"
         Me.CmdCommit.Size = New System.Drawing.Size(130, 44)
         Me.CmdCommit.TabIndex = 0
@@ -95,7 +96,7 @@ Partial Class FrmGit
         '
         'CmdOK
         '
-        Me.CmdOK.Location = New System.Drawing.Point(656, 347)
+        Me.CmdOK.Location = New System.Drawing.Point(658, 377)
         Me.CmdOK.Name = "CmdOK"
         Me.CmdOK.Size = New System.Drawing.Size(130, 44)
         Me.CmdOK.TabIndex = 6
@@ -112,11 +113,22 @@ Partial Class FrmGit
         Me.LblCurrentBranch.TabIndex = 7
         Me.LblCurrentBranch.Text = "CurrentBranch"
         '
+        'CkbAmend
+        '
+        Me.CkbAmend.AutoSize = True
+        Me.CkbAmend.Location = New System.Drawing.Point(35, 118)
+        Me.CkbAmend.Name = "CkbAmend"
+        Me.CkbAmend.Size = New System.Drawing.Size(59, 17)
+        Me.CkbAmend.TabIndex = 8
+        Me.CkbAmend.Text = "Amend"
+        Me.CkbAmend.UseVisualStyleBackColor = True
+        '
         'FrmGit
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.CkbAmend)
         Me.Controls.Add(Me.LblCurrentBranch)
         Me.Controls.Add(Me.CmdOK)
         Me.Controls.Add(Me.TvGit)
@@ -142,4 +154,5 @@ Partial Class FrmGit
     Friend WithEvents CmdCommit As Windows.Forms.Button
     Friend WithEvents CmdOK As Windows.Forms.Button
     Friend WithEvents LblCurrentBranch As Windows.Forms.Label
+    Friend WithEvents CkbAmend As Windows.Forms.CheckBox
 End Class

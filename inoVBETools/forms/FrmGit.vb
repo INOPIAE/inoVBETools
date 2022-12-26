@@ -12,7 +12,15 @@ Public Class FrmGit
     End Sub
 
     Private Sub PopulateTreeView()
-        ClsGit.GetGitFilesStatus()
+        If Me.CkbAmend.Checked Then
+            ClsGit.GetGitFilesStatusLastCommit()
+            ClsGit.GetGitFilesStatus(False)
+            Me.TxtCommit.Text = ClsGit.LastCommitMessage
+        Else
+            ClsGit.GetGitFilesStatus()
+            Me.TxtCommit.Text = ""
+        End If
+
 
         TvGit.Nodes.Clear()
         TvGit.ShowLines = False
@@ -27,7 +35,7 @@ Public Class FrmGit
                 nArea.Name = g.Area
                 nArea.Checked = True
             End If
-            Dim NewNode As TreeNode = nArea.Nodes.Add(g.Type & g.FileName)
+            Dim NewNode As TreeNode = nArea.Nodes.Add(g.Type & " " & g.FileName)
             NewNode.Checked = True
             Select Case g.Area
                 Case My.Resources.GH_New
@@ -68,7 +76,7 @@ Public Class FrmGit
         Me.CmdAdd.Text = inoVBETools.My.Resources.FrmButtonAddToStage
         Me.CmdRemove.Text = inoVBETools.My.Resources.FrmButtonRemoveFromStage
         Me.CmdOK.Text = My.Resources.frmButtonOK
-
+        ClsGit.WorkingDirectory = My.Settings.WorkingDirectory
         PopulateTreeView()
     End Sub
 
@@ -132,5 +140,9 @@ Public Class FrmGit
 
     Private Sub CmdOK_Click(sender As Object, e As EventArgs) Handles CmdOK.Click
         Me.Close()
+    End Sub
+
+    Private Sub CkbAmend_CheckedChanged(sender As Object, e As EventArgs) Handles CkbAmend.CheckedChanged
+        PopulateTreeView()
     End Sub
 End Class

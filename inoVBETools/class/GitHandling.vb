@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Diagnostics.Eventing
+Imports System.IO
 Imports System.Threading
 
 Public Class GitHandling
@@ -15,14 +16,15 @@ Public Class GitHandling
     End Structure
 
     Public GitStatusEntries As New List(Of GitStatusEntry)
-    Public WorkingDirectory As String = My.Settings.WorkingDirectory
-    Public CurrentBranch As String
+    Public WorkingDirectory As String = ""
+    Public CurrentBranch As String = ""
+    Public LastCommitMessage As String = ""
 
     Public Sub AppendToGitIgnoreFile(strPath As String, strIgnore As String)
         My.Computer.FileSystem.WriteAllText(Path.Combine(strPath, ".gitignore"), strIgnore, True)
     End Sub
 
-    Public Sub GetGitFilesStatus()
+    Public Sub GetGitFilesStatus(Optional blnClear As Boolean = True)
 
         Dim pr As New Process
         pr.StartInfo.FileName = My.Settings.Git_Exe
@@ -32,7 +34,9 @@ Public Class GitHandling
         pr.StartInfo.RedirectStandardOutput = True
         pr.Start()
 
-        GitStatusEntries.Clear()
+        If blnClear = True Then
+            GitStatusEntries.Clear()
+        End If
 
         Dim sOutput As String = ""
         Dim blnNew As Boolean
@@ -49,7 +53,9 @@ Public Class GitHandling
 
 
                 If blnStaged = True And strLine.Length > 1 Then
-                    GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), My.Resources.GH_Stashed, strLine.Trim.Substring(0, 12).Trim))
+                    If IsNothing(FindGitStatusEntryByName(strLine.Trim.Substring(0, 12).Trim)) Then
+                        GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(12), My.Resources.GH_Stashed, strLine.Trim.Substring(0, 12).Trim))
+                    End If
                 End If
 
                 If blnChanged = True And strLine.Length > 1 Then
@@ -65,6 +71,51 @@ Public Class GitHandling
                 If strLine.Contains("to include in what will be committed)") Then blnNew = True
                 If strLine.Contains("to discard changes in working directory)") Then blnChanged = True
                 If strLine.Contains(" to unstage)") Then blnStaged = True
+            Loop
+
+        End Using
+
+    End Sub
+
+    Public Sub GetGitFilesStatusLastCommit()
+
+        Dim pr As New Process
+        pr.StartInfo.FileName = My.Settings.Git_Exe
+        pr.StartInfo.Arguments = "log --name-status HEAD^..HEAD"
+        pr.StartInfo.WorkingDirectory = WorkingDirectory
+        pr.StartInfo.UseShellExecute = False
+        pr.StartInfo.RedirectStandardOutput = True
+        pr.Start()
+
+        GitStatusEntries.Clear()
+
+        Dim sOutput As String = ""
+        Dim intLine As Int16
+        Using oStreamReader As System.IO.StreamReader = pr.StandardOutput
+            Do While oStreamReader.Peek() >= 0
+                Dim strLine As String = oStreamReader.ReadLine()
+                intLine += 1
+
+                If intLine = 5 Then
+                    LastCommitMessage = strLine.Trim
+                End If
+
+                If intLine > 5 Then
+                    If strLine.Trim.Length > 0 Then
+                        Dim strType As String = ""
+                        Select Case strLine.Trim.Substring(0, 1)
+                            Case "M"
+                                strType = "modified:"
+                            Case "D"
+                                strType = "deleted:"
+                            Case "N"
+                                strType = "new file:"
+                        End Select
+
+                        GitStatusEntries.Add(New GitStatusEntry(strLine.Trim.Substring(1), My.Resources.GH_Stashed, strType))
+                    End If
+                End If
+
             Loop
 
         End Using
@@ -100,4 +151,13 @@ Public Class GitHandling
             Thread.Sleep(1000)
         Loop
     End Sub
+
+    Public Function FindGitStatusEntryByName(FileName As String) As GitStatusEntry
+        For Each g As GitStatusEntry In GitStatusEntries
+            If g.FileName = FileName Then
+                Return g
+            End If
+        Next
+        Return Nothing
+    End Function
 End Class
