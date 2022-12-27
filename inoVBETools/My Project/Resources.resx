@@ -273,4 +273,7 @@
   <data name="frmGitCurrentBranch" xml:space="preserve">
     <value>Current branch: {0}</value>
   </data>
+  <data name="msgGitDirect" xml:space="preserve">
+    <value>Do you want to add a git commit directly?</value>
+  </data>
 </root>

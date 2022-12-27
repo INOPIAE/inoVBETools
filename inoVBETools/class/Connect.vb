@@ -256,6 +256,9 @@ Public Class Connect
             ClsCodeModuleHandling.ExportModules(_VBE.ActiveVBProject, cd & "\")
             My.Settings.WorkingDirectory = cd
             My.Settings.Save()
+            If MessageBox.Show(My.Resources.msgGitDirect, "inoVBETools", MessageBoxButtons.YesNo) = DialogResult.Yes Then
+                OpenGitForm()
+            End If
         End If
     End Sub
 
@@ -271,16 +274,7 @@ Public Class Connect
     End Sub
 
     Private Sub _MyGitExport_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyGitExport.Click
-        If Not System.IO.File.Exists(My.Settings.Git_Exe) Then
-            MessageBox.Show(My.Resources.msgMissingGit)
-            Exit Sub
-        End If
-        Dim ClsGit As New GitHandling(My.Settings.Git_Exe)
-        If Not ClsGit.IsDirectoryRepo(My.Settings.WorkingDirectory) Then
-            ClsGit.InitializeRepo(My.Settings.WorkingDirectory)
-        End If
-        Dim frm As New FrmGit
-        frm.Show()
+        OpenGitForm()
     End Sub
 
     Private Sub SetLanguage()
@@ -311,4 +305,17 @@ Public Class Connect
         End With
         Return ""
     End Function
+
+    Private Sub OpenGitForm()
+        If Not System.IO.File.Exists(My.Settings.Git_Exe) Then
+            MessageBox.Show(My.Resources.msgMissingGit)
+            Exit Sub
+        End If
+        Dim ClsGit As New GitHandling(My.Settings.Git_Exe)
+        If Not ClsGit.IsDirectoryRepo(My.Settings.WorkingDirectory) Then
+            ClsGit.InitializeRepo(My.Settings.WorkingDirectory)
+        End If
+        Dim frm As New FrmGit
+        frm.Show()
+    End Sub
 End Class

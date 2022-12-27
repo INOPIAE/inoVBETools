@@ -493,6 +493,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Do you want to add a git commit directly? ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgGitDirect() As String
+            Get
+                Return ResourceManager.GetString("msgGitDirect", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die You must define the path to git.exe in settings. ähnelt.
         '''</summary>
         Friend ReadOnly Property msgMissingGit() As String
