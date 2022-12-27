@@ -53,6 +53,7 @@ Public Class GitHandling
                 Dim strLine As String = oStreamReader.ReadLine()
                 If strLine.StartsWith("On branch") Then CurrentBranch = strLine.Substring(10)
                 If strLine.Trim.StartsWith("no changes added to commit") Then blnNew = False
+                If strLine.Trim.StartsWith("nothing added to commit but untracked files present") Then blnNew = False
                 If strLine.Trim.StartsWith("Untracked files:") Then blnChanged = False
                 If strLine.Trim.StartsWith("Untracked files:") Then blnStaged = False
                 If strLine.Trim.StartsWith("Changes not staged for commit:") Then blnStaged = False
