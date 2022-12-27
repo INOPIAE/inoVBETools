@@ -8,7 +8,7 @@ Imports Microsoft.Office.Interop.Excel
 Imports Microsoft.Vbe.Interop
 Public Class CodeModuleHandling
 
-    Private ClsGit As New GitHandling
+    Private ClsGit As New GitHandling(My.Settings.Git_Exe)
     Public Sub ImportCodeModule(vbeProject As VBProject, ModuleFullPath As String, Optional blnMessage As Boolean = False)
 
         Dim ModuleName As String = getModuleNameFromPath(ModuleFullPath)

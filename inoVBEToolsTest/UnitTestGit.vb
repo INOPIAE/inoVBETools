@@ -1,11 +1,15 @@
 ﻿Imports System.ComponentModel
+Imports System.IO
+Imports System.Reflection
 Imports inoVBETools
 Imports inoVBETools.GitHandling
 Imports Xunit
 
 Namespace inoVBEToolsTest
     Public Class UnitTestGit
-        Public ClsGit As New inoVBETools.GitHandling
+        Public ClsGit As New inoVBETools.GitHandling("C:\Program Files\Git\cmd\git.exe")
+
+        Private TestFolder As String = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location).Replace("bin\Debug\net6.0", "TestData")
 
         <Fact>
         Sub TestFindGitStatusEntryByName()
@@ -30,5 +34,23 @@ Namespace inoVBEToolsTest
             Assert.Equal(Nothing, g)
 
         End Sub
+
+        <Fact>
+        Sub TestInitRepo()
+            Dim strPath As String = Path.Combine(TestFolder, "GitTest")
+            If Directory.Exists(strPath) Then
+                Directory.Delete(strPath, True)
+            End If
+            Directory.CreateDirectory(strPath)
+
+            Assert.False(ClsGit.IsDirectoryRepo(strPath))
+
+            ClsGit.InitializeRepo(strPath)
+
+            Assert.True(ClsGit.IsDirectoryRepo(strPath))
+
+            Directory.Delete(strPath, True)
+        End Sub
+
     End Class
 End Namespace

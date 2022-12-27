@@ -6,7 +6,7 @@ Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Imports System.Xml
 
 Public Class FrmGit
-    Private ClsGit As New GitHandling
+    Private ClsGit As New GitHandling(My.Settings.Git_Exe)
     Private Sub cmdTest_Click(sender As Object, e As EventArgs) Handles cmdTest.Click
         PopulateTreeView()
     End Sub

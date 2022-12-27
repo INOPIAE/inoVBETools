@@ -275,7 +275,10 @@ Public Class Connect
             MessageBox.Show(My.Resources.msgMissingGit)
             Exit Sub
         End If
-
+        Dim ClsGit As New GitHandling(My.Settings.Git_Exe)
+        If Not ClsGit.IsDirectoryRepo(My.Settings.WorkingDirectory) Then
+            ClsGit.InitializeRepo(My.Settings.WorkingDirectory)
+        End If
         Dim frm As New FrmGit
         frm.Show()
     End Sub

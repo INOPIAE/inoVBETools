@@ -20,6 +20,12 @@ Public Class GitHandling
     Public CurrentBranch As String = ""
     Public LastCommitMessage As String = ""
 
+    Private GitPath As String
+
+    Public Sub New(GitExe As String)
+        GitPath = GitExe
+    End Sub
+
     Public Sub AppendToGitIgnoreFile(strPath As String, strIgnore As String)
         My.Computer.FileSystem.WriteAllText(Path.Combine(strPath, ".gitignore"), strIgnore, True)
     End Sub
@@ -27,7 +33,7 @@ Public Class GitHandling
     Public Sub GetGitFilesStatus(Optional blnClear As Boolean = True)
 
         Dim pr As New Process
-        pr.StartInfo.FileName = My.Settings.Git_Exe
+        pr.StartInfo.FileName = GitPath
         pr.StartInfo.Arguments = "status"
         pr.StartInfo.WorkingDirectory = WorkingDirectory
         pr.StartInfo.UseShellExecute = False
@@ -80,7 +86,7 @@ Public Class GitHandling
     Public Sub GetGitFilesStatusLastCommit()
 
         Dim pr As New Process
-        pr.StartInfo.FileName = My.Settings.Git_Exe
+        pr.StartInfo.FileName = GitPath
         pr.StartInfo.Arguments = "log --name-status HEAD^..HEAD"
         pr.StartInfo.WorkingDirectory = WorkingDirectory
         pr.StartInfo.UseShellExecute = False
@@ -124,7 +130,7 @@ Public Class GitHandling
 
     Public Sub GitCommand(strCommand As String, strFile As String)
         Dim pr As New Process
-        pr.StartInfo.FileName = My.Settings.Git_Exe
+        pr.StartInfo.FileName = GitPath
         pr.StartInfo.Arguments = strCommand & " " & Chr(34) & strFile & Chr(34)
         pr.StartInfo.WorkingDirectory = WorkingDirectory
         pr.StartInfo.CreateNoWindow = True
@@ -139,7 +145,7 @@ Public Class GitHandling
 
     Public Sub GitCommit(strCommitMessage As String)
         Dim pr As New Process
-        pr.StartInfo.FileName = My.Settings.Git_Exe
+        pr.StartInfo.FileName = GitPath
         pr.StartInfo.Arguments = "commit -m " & Chr(34) & strCommitMessage & Chr(34)
         pr.StartInfo.WorkingDirectory = WorkingDirectory
         pr.StartInfo.CreateNoWindow = True
@@ -160,4 +166,23 @@ Public Class GitHandling
         Next
         Return Nothing
     End Function
+
+    Public Function IsDirectoryRepo(strPath As String) As Boolean
+        Return Directory.Exists(Path.Combine(strPath, ".git"))
+    End Function
+
+    Public Sub InitializeRepo(strPath As String)
+        Dim pr As New Process
+        pr.StartInfo.FileName = GitPath
+        pr.StartInfo.Arguments = "init"
+        pr.StartInfo.WorkingDirectory = strPath
+        pr.StartInfo.CreateNoWindow = True
+        pr.StartInfo.UseShellExecute = False
+        pr.StartInfo.RedirectStandardOutput = True
+        pr.Start()
+        Do Until pr.HasExited = True
+            pr.Refresh()
+            Thread.Sleep(1000)
+        Loop
+    End Sub
 End Class
