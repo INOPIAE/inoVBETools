@@ -276,4 +276,7 @@
   <data name="msgGitDirect" xml:space="preserve">
     <value>Do you want to add a git commit directly?</value>
   </data>
+  <data name="msgCodeWorksIndetended" xml:space="preserve">
+    <value>Check wether the code of the following code modules behaves as intended:</value>
+  </data>
 </root>

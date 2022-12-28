@@ -466,6 +466,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Sucht eine lokalisierte Zeichenfolge, die Check wether the code of the following code modules behaves as intended: ähnelt.
+        '''</summary>
+        Friend ReadOnly Property msgCodeWorksIndetended() As String
+            Get
+                Return ResourceManager.GetString("msgCodeWorksIndetended", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Sucht eine lokalisierte Zeichenfolge, die Do you want to continue? ähnelt.
         '''</summary>
         Friend ReadOnly Property msgContinue() As String

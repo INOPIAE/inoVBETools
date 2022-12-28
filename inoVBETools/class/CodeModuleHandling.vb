@@ -97,6 +97,7 @@ Public Class CodeModuleHandling
     Public Sub ImportModules(vbeProject As VBProject, strPath As String)
         If My.Settings.MakeBackup Then MakeBackup(vbeProject, strPath)
         Dim LFiles As New List(Of String)
+        Dim strWorksheet As String = ""
         If MessageBox.Show(String.Format(inoVBETools.My.Resources.CMHOverwrite, vbeProject.Name) & vbCrLf & inoVBETools.My.Resources.msgContinue, inoVBETools.My.Resources.CHMTitleImport, MessageBoxButtons.YesNo) = vbYes Then
             Dim di As New IO.DirectoryInfo(strPath)
             Dim aryFi As IO.FileInfo() = di.GetFiles("*.*")
@@ -108,7 +109,9 @@ Public Class CodeModuleHandling
                         ImportCodeModule(vbeProject, fi.FullName)
                         LFiles.Add(fi.Name.Replace(fi.Extension, ""))
                     Case ".dcls"
-                        ImportCodeModuleSpecial(vbeProject, fi.FullName)
+                        If ImportCodeModuleSpecial(vbeProject, fi.FullName) Then
+                            strWorksheet &= fi.Name.Substring(0, fi.Name.Length - fi.Extension.Length) & vbCrLf
+                        End If
                         LFiles.Add(fi.Name.Replace(fi.Extension, ""))
                 End Select
             Next
@@ -122,6 +125,10 @@ Public Class CodeModuleHandling
                     End If
                 End If
             Next
+        End If
+
+        If strWorksheet <> "" Then
+            MessageBox.Show(inoVBETools.My.Resources.msgCodeWorksIndetended & vbCrLf & strWorksheet)
         End If
     End Sub
     Function ComponentTypeToString(ComponentType As vbext_ComponentType) As String
@@ -151,10 +158,11 @@ Public Class CodeModuleHandling
 
     End Function
 
-    Private Sub ImportCodeModuleSpecial(vbeProject As VBProject, strPath As String)
+    Private Function ImportCodeModuleSpecial(vbeProject As VBProject, strPath As String) As Boolean
         Dim ModuleName As String = getModuleNameFromPath(strPath)
         Dim reader As New StreamReader(strPath, Encoding.Default)
         Dim intLines As Int16 = 1
+        Dim blnWorksheet As Boolean = False
 
 
         Dim CodeComponent As VBComponent = GetComponentByName(ModuleName, vbeProject)
@@ -171,11 +179,13 @@ Public Class CodeModuleHandling
                 End If
                 intLines += 1
             Loop
+            If intLines > 12 Then blnWorksheet = True
             reader.Close()
 
             CodeComponent.CodeModule.InsertLines(1, strCode)
         End If
-    End Sub
+        Return blnWorksheet
+    End Function
 
     Public Function getModuleNameFromPath(strPath As String) As String
         Dim ModuleNameA() As String = strPath.Split("\")
