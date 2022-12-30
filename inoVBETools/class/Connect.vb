@@ -30,6 +30,7 @@ Public Class Connect
     Private WithEvents _MyImport As CommandBarButton = Nothing
     Private WithEvents _MySettings As CommandBarButton = Nothing
     Private WithEvents _MyIndentation As CommandBarButton = Nothing
+    Private WithEvents _MyVerionNumber As CommandBarButton = Nothing
 
     Private ClsIndent As New Indentation
     Private ClsVBEHandling As New VBEHandling
@@ -135,6 +136,11 @@ Public Class Connect
             _MyImport = cbrExport.Controls.Add(MsoControlType.msoControlButton)
             With _MyImport
                 .Caption = inoVBETools.My.Resources.menuImport
+                .BeginGroup = True
+            End With
+            _MyVerionNumber = .Controls.Add(MsoControlType.msoControlButton)
+            With _MyVerionNumber
+                .Caption = inoVBETools.My.Resources.menuVersionNumber
                 .BeginGroup = True
             End With
             _MySettings = .Controls.Add(MsoControlType.msoControlButton)
@@ -317,5 +323,9 @@ Public Class Connect
         End If
         Dim frm As New FrmGit
         frm.Show()
+    End Sub
+
+    Private Sub _MyVerionNumber_Click(Ctrl As CommandBarButton, ByRef CancelDefault As Boolean) Handles _MyVerionNumber.Click
+        ClsCodeModuleHandling.UpdateVersion(_VBE.ActiveVBProject)
     End Sub
 End Class

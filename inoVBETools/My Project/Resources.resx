@@ -279,4 +279,7 @@
   <data name="msgCodeWorksIndetended" xml:space="preserve">
     <value>Check wether the code of the following code modules behaves as intended:</value>
   </data>
+  <data name="menuVersionNumber" xml:space="preserve">
+    <value>Increment version number</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.Drawing
+Imports System.IO
 Imports System.Runtime.Remoting.Metadata.W3cXsd2001
 Imports System.Text
 Imports System.Windows.Forms
@@ -131,6 +132,7 @@ Public Class CodeModuleHandling
             MessageBox.Show(inoVBETools.My.Resources.msgCodeWorksIndetended & vbCrLf & strWorksheet)
         End If
     End Sub
+
     Function ComponentTypeToString(ComponentType As vbext_ComponentType) As String
         'ComponentTypeToString from http://www.cpearson.com/excel/vbe.aspx
         Select Case ComponentType
@@ -225,6 +227,44 @@ Public Class CodeModuleHandling
                                 & inoVBETools.My.Resources.msgUseThisFunction & vbCrLf & inoVBETools.My.Resources.msgActionCanceled)
                 Return False
         End Select
+        Return True
+    End Function
+
+    Public Function UpdateVersion(vbeProject As VBProject) As Boolean
+        Dim CM As VBComponent = GetComponentByName("mdl_Version", vbeProject)
+        If IsNothing(CM) Then
+            MessageBox.Show("No module mdl_Version found")
+            Return False
+        End If
+
+        With CM.CodeModule
+            For intLine = 1 To .CountOfDeclarationLines
+                Dim TestString As String = .Lines(intLine, 1)
+                Dim strTest() As String
+                Dim intMajor As Integer
+                Dim intMinor As Integer
+                Dim VersionDate As String
+                If TestString.Contains("sub") Then Exit For
+                If TestString.Contains("function") Then Exit For
+
+                If TestString.Contains("MinorVersion") Then
+                    strTest = TestString.Split("=")
+                    intMinor = strTest(1).Trim + 1
+                    .ReplaceLine(intLine, TestString.Replace(intMinor - 1, intMinor))
+                End If
+
+                If TestString.Contains("MajorVersion") Then
+                    strTest = TestString.Split("=")
+                    intMajor = strTest(1).Trim + 1
+                End If
+
+                If TestString.Contains("VersionDate") Then
+                    strTest = TestString.Split("=")
+                    VersionDate = Date.Today.Month & "/" & Date.Today.Day & "/" & Date.Today.Year
+                    .ReplaceLine(intLine, TestString.Replace(strTest(1), "#" & VersionDate & "#"))
+                End If
+            Next
+        End With
         Return True
     End Function
 End Class
