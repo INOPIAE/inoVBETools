@@ -1,0 +1,8 @@
+Attribute VB_Name = "mdl_Version"
+Option Explicit
+Option Private Module
+
+Public Const intMajorVersion As String = 0
+Public Const intMinorVersion As String = 1
+Public Const dtVersionDate As Date = #12/30/2022#
+

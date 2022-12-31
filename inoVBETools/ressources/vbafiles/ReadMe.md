@@ -1,0 +1,1 @@
+﻿mdl_Version.bas needs to be renamed to .txt as otherwise VS throes an error. 

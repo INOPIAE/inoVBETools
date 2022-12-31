@@ -233,8 +233,16 @@ Public Class CodeModuleHandling
     Public Function UpdateVersion(vbeProject As VBProject) As Boolean
         Dim CM As VBComponent = GetComponentByName("mdl_Version", vbeProject)
         If IsNothing(CM) Then
-            MessageBox.Show("No module mdl_Version found")
-            Return False
+            If MessageBox.Show(String.Format("No module 'mdl_Version found'.{0}Do you want to import it?", vbCrLf), My.Resources.Msg_Hint, MessageBoxButtons.YesNo) = DialogResult.Yes Then
+                Dim tempFile As String = Path.Combine(Path.GetTempPath(), "mdl_Version.bas")
+                FileCopy(Path.Combine(My.Application.Info.DirectoryPath, "ressources\vbafiles\mdl_Version.txt"), tempFile)
+                vbeProject.VBComponents.Import(tempFile)
+                File.Delete(tempFile)
+                CM = GetComponentByName("mdl_Version", vbeProject)
+            Else
+                Return False
+            End If
+
         End If
 
         With CM.CodeModule
